@@ -9,7 +9,7 @@ For example, you'll be allowed to send up text to a player with a single piece o
 
 void onInit(CRules@ this)
 {
-   mc::getMsg("AsuMagic") << "Hello, AsuMagic!" << rdy;
+   mc::getMsg("AsuMagic") << "Hello, AsuMagic!" << mc::rdy;
 }
 ```
 
