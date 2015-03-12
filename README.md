@@ -1,7 +1,7 @@
 # King Arthur's Gold mod : moarCommands
 A powerful KAG mod and library designed for extensibility and simplicity.
 
-/// moarCommands readme ///
+*/// moarCommands readme ///*
 
 This readme will teach you everything you may need to know to use, modify or extend moarCommands.
 
