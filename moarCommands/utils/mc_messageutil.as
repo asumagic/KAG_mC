@@ -50,10 +50,13 @@ namespace mc
 			return this;
 		}
 
-		void put() {}
+		void put()
+		{
+			print(istr);
+		}
 	};
 
-	class svout : msgout
+	final class svout : msgout
 	{
 		svout() {}
 		void put()
@@ -69,7 +72,7 @@ namespace mc
 		}
 	};
 
-	class clout : msgout
+	final class clout : msgout
 	{
 		clout(CPlayer@ player, bool outmode)
 		{
