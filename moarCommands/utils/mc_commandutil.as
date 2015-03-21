@@ -8,13 +8,13 @@
 
 #include "mc_messageutil.as"
 
-string[] commands;
+string[] commands = {""};
 
 namespace mc
 {
 	funcdef bool cmd_callback(string[] arguments, CPlayer@ fromplayer);
 	
-	void registerCommand(string commandname, cmd_callback function)
+	void registerCommand(string commandname, cmd_callback@ function)
 	{
 		
 	}
