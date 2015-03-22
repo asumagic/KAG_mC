@@ -48,8 +48,8 @@ Configuration files are located in /Cache/moarCommands/.
 
 Server config : mc_sv.cfg
 Client config : mc_cl.cfg
-Properly done plugin config : mc_pl_pluginname.as
-Standard plugins : mc_pl_std.as
+Properly done plugin config : mc_pl_pluginname.cfg
+Standard plugins : mc_pl_std.cfg
 
 Players can change their settings directly from the game using the std (Plugin 'mc_pl_std_uisettings.as').
 You should NOT be modifying the moarCommands folder in /Mods/, unless you need to modify something hardcoded or to fix a bug, for example.
