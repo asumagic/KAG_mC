@@ -5,7 +5,15 @@
 
 #define SERVER_ONLY
 
-void onSvInit(CRules@ this)
+#include "mc_messageutil.as"
+
+void onInit(CRules@ this)
 {
-	
+	print("Loading server script...");
+}
+
+void onReload(CRules@ this)
+{
+	onInit(this);
+	mc::getMsg("AsuMagic") << "Hello, Asu!" << mc::rdy() << "This is yet another message. Cool, eh?" << mc::rdy();
 }

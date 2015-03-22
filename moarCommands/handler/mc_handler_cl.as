@@ -5,9 +5,14 @@
 
 #define CLIENT_ONLY
 
-void onClInit(CRules@ this)
+void onInit(CRules@ this)
 {
-	
+	print("Loading client script...");
+}
+
+void onReload(CRules@ this)
+{
+	onInit(this);
 }
 
 void onCommand(CRules@ this, u8 cmd, CBitStream @params)
@@ -19,8 +24,7 @@ void onCommand(CRules@ this, u8 cmd, CBitStream @params)
 
 		if (outmode)
 		{
-			// Todo : color
-			client_AddToChat(textoutput);
+			client_AddToChat(textoutput, SColor(255, 0, 127, 0));
 		}
 		else
 		{
