@@ -6,6 +6,7 @@
 #define SERVER_ONLY
 
 #include "mc_messageutil.as"
+#include "mc_commandutil.as"
 
 void onInit(CRules@ this)
 {
@@ -15,5 +16,17 @@ void onInit(CRules@ this)
 void onReload(CRules@ this)
 {
 	onInit(this);
-	mc::getMsg("AsuMagic") << "Hello, Asu!" << mc::rdy() << "This is yet another message. Cool, eh?" << mc::rdy();
+}
+
+bool onServerProcessChat(CRules@ this, const string &in textIn, string &out textOut, CPlayer@ player)
+{
+	if (textIn[0] == 33) // 33 = '!'. TODO: Parameter
+	{
+		string command = mc::getCommand(textIn);
+		warn("Received command : '" + command + "'");
+
+		mc::sendCommand(command, textIn, player);
+	}
+
+	return true;
 }

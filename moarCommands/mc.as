@@ -7,26 +7,31 @@
 // This mC build was designed for build : 1387
 //
 
-//#include "mc_handler_cl.as"
-//#include "mc_handler_sv.as"
-
 namespace mc
 {
 	void setupCommonCommands(CRules@ this)
 	{
 		this.addCommandID("mc_strsend");
+		this.addCommandID("mc_cmdsend");
+	}
+
+	void setupLoadSTD(CRules@ this)
+	{
+		this.AddScript("mc_pl_std_mc.as");
 	}
 }
 
-void onInit(CRules@ this)
+void onInit(CBlob@ blob)
 {
+	CRules@ this = getRules();
+
 	warn("moarCommands is initializing...");
 
 	mc::setupCommonCommands(this);
 
 	if (getNet().isServer())
 	{
-		// We're removing the script first so we don't get a script running twice
+		// We're removing the script first so we don't get a script running twice (not sure if done automatically)
 		getRules().RemoveScript("mc_handler_sv.as");
 		getRules().AddScript("mc_handler_sv.as");
 	}
@@ -39,10 +44,13 @@ void onInit(CRules@ this)
 		getRules().AddScript("mc_handler_cl.as");
 	}
 
+	print("Initializing STD");
+	mc::setupLoadSTD(this);
+
 	warn("moarCommands initialized.");
 }
 
-void onReload(CRules@ this)
+void onReload(CBlob@ this)
 {
 	warn("moarCommands is reloading...");
 	onInit(this);
