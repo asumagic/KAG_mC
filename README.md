@@ -23,12 +23,6 @@ void onInit(CBlob@ this)
 	mc::registerCommand("hw", cmd_helloworld);
 }
 
-// This will call onInit on reload, just in case.
-void onReload(CBlob@ this)
-{
-	onInit(this);
-}
-
 // This will be called once the player writes !hw.
 bool cmd_helloworld(string[] arguments, CPlayer@ player)
 {
