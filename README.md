@@ -13,4 +13,35 @@ void onInit(CRules@ this)
 }
 ```
 
+You also are (already) ready to make on some basic plugins (it is subject to change, so don't make large plugins).
+It will later be shortened for easier use.
+Basic plugin example :
+```
+// This will register the command to the mC API.
+void onInit(CBlob@ this)
+{
+	mc::registerCommand("hw", cmd_helloworld);
+}
+
+// This will call onInit on reload, just in case.
+void onReload(CBlob@ this)
+{
+	onInit(this);
+}
+
+// This will be called once the player writes !hw.
+bool cmd_pineapple(string[] arguments, CPlayer@ player)
+{
+	mc::getMsg(player) << "Hello World!" << mc::rdy();
+	return false;
+}
+
+// This allows catching the command event.
+void onCommand(CRules@ this, u8 cmd, CBitStream@ data)
+{
+	mc::catchCommand(this, cmd, data);
+}
+```
+Then, add the script into scriptloader.cfg. This is, for now, required, because of a KAG bug, which makes KAG ignore modded scripts put into gamemode.cfg.
+
 Feel free to suggest new features and to improve the code!
