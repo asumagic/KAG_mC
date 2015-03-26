@@ -30,7 +30,7 @@ void onReload(CBlob@ this)
 }
 
 // This will be called once the player writes !hw.
-bool cmd_pineapple(string[] arguments, CPlayer@ player)
+bool cmd_helloworld(string[] arguments, CPlayer@ player)
 {
 	mc::getMsg(player) << "Hello World!" << mc::rdy();
 	return false;
