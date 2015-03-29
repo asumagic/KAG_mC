@@ -2,6 +2,8 @@
 A powerful KAG mod and library designed for extensibility and simplicity.
 It will allow server makers to extend their servers for new commands for their admins, but also modders (even beginning modders) to start creating simple mods in a simple, comfortable way, using the mC library and the std plugin database.
 
+### Plugin example
+
 For example, you'll be allowed to send up text to a player with a single piece of code such as this :
 
 ```c++
@@ -38,7 +40,7 @@ void onCommand(CRules@ this, u8 cmd, CBitStream@ data)
 ```
 Then make it load in some rule file. (Or use CRules::AddScript()).
 
-TODO list :
+###TODO list :
 - [ ] Core functionnality
   - [x] Message class
   - [x] *Command handling*
