@@ -1,10 +1,10 @@
-# King Arthur's Gold mod : moarCommands
+# moarCommands
 A powerful KAG mod and library designed for extensibility and simplicity.
 It will allow server makers to extend their servers for new commands for their admins, but also modders (even beginning modders) to start creating simple mods in a simple, comfortable way, using the mC library and the std plugin database.
 
 For example, you'll be allowed to send up text to a player with a single piece of code such as this :
 
-```
+```c++
 #include "mc_messageutil.as"
 
 void onInit(CRules@ this)
@@ -16,7 +16,7 @@ void onInit(CRules@ this)
 You also are (already) ready to make on some basic plugins (it is subject to change, so don't make large plugins).
 It will later be shortened for easier use.
 Basic plugin example :
-```
+```c++
 // This will register the command to the mC API.
 void onReload(CBlob@ this)
 {
@@ -37,5 +37,21 @@ void onCommand(CRules@ this, u8 cmd, CBitStream@ data)
 }
 ```
 Then make it load in some rule file. (Or use CRules::AddScript()).
+
+TODO list :
+- [ ] Core functionnality
+  - [x] Message class
+  - [x] *Command handling*
+  - [x] *Command registering*
+  - [x] Security (seclevs support, etc) - Not tested yet (even if it's basic), but should work.
+  - [ ] Aliases
+  - [ ] Errors
+- [ ] Most of the planned commands
+  - [ ] *moarCore*
+  - [ ] moarSpawn
+  - [ ] moarSecurity
+  - [ ] moarGUI
+  - [ ] moarEdit
+- [ ] Documentation
 
 Feel free to suggest new features and to improve the code!
