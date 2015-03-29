@@ -1,6 +1,6 @@
 # moarCommands
-A powerful KAG mod and library designed for extensibility and simplicity.
-It will allow server makers to extend their servers for new commands for their admins, but also modders (even beginning modders) to start creating simple mods in a simple, comfortable way, using the mC library and the std plugin database.
+moarCommands is a powerful KAG mod and library designed for extensibility and simplicity.
+It will allow server makers to extend their servers for new commands for their admins, but also modders (even beginning ones) to start creating new commands in a simple, comfortable way, using the complete mC library and the std plugin database. Look below if you're interested to see how it will look!
 
 ### Plugin example
 
@@ -20,7 +20,7 @@ It will later be shortened for easier use.
 Basic plugin example :
 ```c++
 // This will register the command to the mC API.
-void onReload(CBlob@ this)
+void onReload(CRules@ this)
 {
 	mc::registerCommand("hw", cmd_helloworld);
 }
