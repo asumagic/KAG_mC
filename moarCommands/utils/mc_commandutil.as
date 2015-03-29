@@ -77,7 +77,7 @@ namespace mc
 		int spacepos = commandin.find(" ");
 		if (spacepos == -1)
 		{
-			string[] none = {""}; // workaround
+			string[] none; // workaround
 			return none;
 		}
 		else

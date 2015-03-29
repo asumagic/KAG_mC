@@ -29,9 +29,9 @@ bool onServerProcessChat(CRules@ this, const string &in textIn, string &out text
 				return true;
 			}
 		}
+		mc::getMsg(player) << "The requested command was not found." << mc::rdy();
 	}
 
-	mc::getMsg(player) << "The requested command was not found." << mc::rdy();
 
 	return true;
 }

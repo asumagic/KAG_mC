@@ -20,6 +20,11 @@ namespace mc
 		this.AddScript("mc_pl_std_mc.as");
 		this.AddScript("mc_pl_std_apidemo.as");
 	}
+
+	void setupLoadmE(CRules@ this)
+	{
+		this.AddScript("mc_pl_me_base.as");
+	}
 }
 
 void onInit(CRules@ this)
@@ -50,6 +55,8 @@ void onInit(CRules@ this)
 
 	print("Initializing STD");
 	mc::setupLoadSTD(this);
+	print("Initializing moarEdit");
+	mc::setupLoadmE(this);
 
 	warn("moarCommands initialized.");
 }
