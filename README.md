@@ -43,13 +43,13 @@ Then make it load in some rule file. (Or use CRules::AddScript()).
 ###TODO list :
 - [ ] Core functionnality
   - [x] Message class
-  - [x] *Command handling*
-  - [x] *Command registering*
+  - [x] **Command handling**
+  - [x] **Command registering**
   - [x] Security (seclevs support, etc) - Not tested yet (even if it's basic), but should work.
   - [ ] Aliases
   - [ ] Errors
 - [ ] Most of the planned commands
-  - [ ] *moarCore*
+  - [ ] **moarCore**
   - [ ] moarSpawn
   - [ ] moarSecurity
   - [ ] moarGUI
