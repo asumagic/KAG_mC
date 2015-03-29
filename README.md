@@ -18,7 +18,7 @@ It will later be shortened for easier use.
 Basic plugin example :
 ```
 // This will register the command to the mC API.
-void onInit(CBlob@ this)
+void onReload(CBlob@ this)
 {
 	mc::registerCommand("hw", cmd_helloworld);
 }
@@ -36,6 +36,6 @@ void onCommand(CRules@ this, u8 cmd, CBitStream@ data)
 	mc::catchCommand(this, cmd, data);
 }
 ```
-Then, add the script into scriptloader.cfg. This is, for now, required, because of a KAG bug, which makes KAG ignore modded scripts put into gamemode.cfg.
+Then make it load in some rule file. (Or use CRules::AddScript()).
 
 Feel free to suggest new features and to improve the code!
