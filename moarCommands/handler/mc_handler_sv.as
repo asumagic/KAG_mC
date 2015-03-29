@@ -13,11 +13,6 @@ void onInit(CRules@ this)
 	print("Loading server script...");
 }
 
-void onReload(CRules@ this)
-{
-	onInit(this);
-}
-
 bool onServerProcessChat(CRules@ this, const string &in textIn, string &out textOut, CPlayer@ player)
 {
 	if (textIn[0] == 33) // 33 = '!'. TODO: Parameter
@@ -25,8 +20,18 @@ bool onServerProcessChat(CRules@ this, const string &in textIn, string &out text
 		string command = mc::getCommand(textIn);
 		warn("Received command : '" + command + "'");
 
-		mc::sendCommand(command, textIn, player);
+		mc::syncGetCommands();
+		for(u16 ccom = 0; ccom < mc::commands.size(); ccom++)
+		{
+			if (mc::commands[ccom] == command)
+			{
+				mc::sendCommand(command, textIn, player);
+				return true;
+			}
+		}
 	}
+
+	mc::getMsg(player) << "The requested command was not found." << mc::rdy();
 
 	return true;
 }

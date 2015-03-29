@@ -10,9 +10,10 @@
 
 namespace mc
 {
-	funcdef bool cmd_callback(string[] arguments, CPlayer@ fromplayer);
+	funcdef void cmd_callback(string[] arguments, CPlayer@ fromplayer);
 
 	string[] commands;
+	string[] localcommands;
 	cmd_callback@[] commandcallbacks;
 	
 	void registerCommand(string commandname, cmd_callback@ function)
@@ -21,7 +22,7 @@ namespace mc
 
 		print("Registering command '" + commandname + "'...");
 
-		if (commands.size() != commandcallbacks.size())
+		if (localcommands.size() != commandcallbacks.size())
 		{
 			error("moarCommands fatal error : Command arrays length mismatch!");
 		}
@@ -29,6 +30,7 @@ namespace mc
 		unregisterCommand(commandname);
 
 		commands.push_back(commandname);
+		localcommands.push_back(commandname);
 		commandcallbacks.push_back(function);
 
 		syncSetCommands();
@@ -52,6 +54,11 @@ namespace mc
 
 	void sendCommand(string command, string wholecommand, CPlayer@ invoker)
 	{
+		if (invoker is null)
+		{
+			return;
+		}
+
 		CBitStream data;
 		data.write_string(command);
 		data.write_string(wholecommand);
@@ -85,9 +92,9 @@ namespace mc
 		if (cmd == this.getCommandID("mc_cmdsend"))
 		{
 			string commandname = data.read_string();
-			for(u16 i = 0; i < mc::commands.size(); i++)
+			for(u16 i = 0; i < mc::localcommands.size(); i++)
 			{
-				if (commandname == mc::commands[i])
+				if (commandname == mc::localcommands[i])
 				{
 					string wholecommand = data.read_string();
 					CPlayer@ invoker = getPlayerByNetworkId(data.read_u16());

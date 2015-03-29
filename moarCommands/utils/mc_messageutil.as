@@ -5,6 +5,8 @@
 // Various utilities for sending messages, errors and related to players, server console, etc.
 //
 
+#include "mc_errorutil.as"
+
 namespace mc
 {
 	string noticeprefix = "[mC] ";
@@ -60,6 +62,76 @@ namespace mc
 		msgout@ opShl(const rdy &in readytok)
 		{
 			put();
+			return this;
+		}
+
+		msgout@ opShl(const string[] &in stringarray)
+		{
+			for(u16 i = 0; i < stringarray.size(); i++)
+			{
+				istr += stringarray[i] + ", ";
+			}
+
+			istr = istr.substr(0, istr.size()-2);
+
+			return this;
+		}
+
+		msgout@ opShl(const Vec2f &in toput)
+		{
+			istr += "" + toput.x + "; " + toput.y;
+			return this;
+		}
+
+		msgout@ opShl(const SColor &in toput)
+		{
+			istr += "ARGB : " + toput.getAlpha() + ", " + toput.getRed() + ", " + toput.getGreen() + ", " + toput.getBlue();
+			return this;
+		}
+
+		msgout@ opShl(CPlayer@ toput)
+		{
+			if (toput !is null)
+			{
+				istr += toput.getUsername();
+			}
+			else
+			{
+				istr += "null player";
+			}
+
+			return this;
+		}
+
+		msgout@ opShl(CMap@ toput)
+		{
+			if (toput !is null)
+			{
+				istr += toput.getMapName();
+			}
+			else
+			{
+				istr += "null map";
+			}
+			return this;
+		}
+
+		msgout@ opShl(CRules@ &in toput)
+		{
+			if (toput !is null)
+			{
+				istr += toput.gamemode_name;
+			}
+			else
+			{
+				istr += "null rules";
+			}
+			return this;
+		}
+
+		msgout@ opShl(const double &in toput)
+		{
+			istr += "" + toput; // seems ugly to me, feel free to improve
 			return this;
 		}
 

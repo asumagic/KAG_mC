@@ -15,6 +15,7 @@ void onReload(CRules@ this)
 	onInit(this);
 }
 
+
 void onCommand(CRules@ this, u8 cmd, CBitStream @params)
 {
 	if (cmd == this.getCommandID("mc_strsend"))

@@ -18,16 +18,20 @@ namespace mc
 	void setupLoadSTD(CRules@ this)
 	{
 		this.AddScript("mc_pl_std_mc.as");
+		this.AddScript("mc_pl_std_apidemo.as");
 	}
 }
 
-void onInit(CBlob@ blob)
+void onInit(CRules@ this)
 {
-	CRules@ this = getRules();
+	//CRules@ this = getRules();
 
 	warn("moarCommands is initializing...");
 
+	print("Initializing common commands");
 	mc::setupCommonCommands(this);
+
+	print("Loading handlers");
 
 	if (getNet().isServer())
 	{
@@ -50,8 +54,7 @@ void onInit(CBlob@ blob)
 	warn("moarCommands initialized.");
 }
 
-void onReload(CBlob@ this)
+void onReload(CRules@ this)
 {
-	warn("moarCommands is reloading...");
 	onInit(this);
 }
