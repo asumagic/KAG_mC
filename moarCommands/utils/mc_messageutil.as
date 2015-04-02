@@ -135,6 +135,24 @@ namespace mc
 			return this;
 		}
 
+		msgout@ opShl(const float &in toput)
+		{
+			istr += "" + toput;
+			return this;
+		}
+
+		msgout@ opShl(const int &in toput)
+		{
+			istr += "" + toput;
+			return this;
+		}
+
+		msgout@ opShl(const uint &in toput)
+		{
+			istr += "" + toput;
+			return this;
+		}
+
 		void put()
 		{
 			print(istr);

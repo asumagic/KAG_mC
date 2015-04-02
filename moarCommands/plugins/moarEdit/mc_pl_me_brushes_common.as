@@ -18,6 +18,22 @@ string[] BrushNames =
 	"square"
 };
 
+enum BrushFlags
+{
+	Regular,
+	Fix,
+	Grass,
+	Overlay
+}
+
+string[] BrushFlagNames = 
+{
+	"regular"
+	"fix",
+	"grass",
+	"overlay"
+};
+
 void FillSquare(Vec2f pos, int tile, int size)
 {
 	CMap@ map = getMap();

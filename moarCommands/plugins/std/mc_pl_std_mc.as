@@ -33,8 +33,7 @@ void cmd_commands(string[] arguments, CPlayer@ fromplayer)
 	string commands = "";
 
 	mc::getMsg(fromplayer) << "== Commands ==" << mc::rdy()
-						   << "= Commands : " << ""+mc::commands.size() << mc::rdy()
-						   << "= Listing : " << mc::commands << mc::rdy();
+						   << "= Listing commands [" << mc::commands.size() << "] : " << mc::commands << mc::rdy();
 }
 
 void onCommand(CRules@ this, u8 cmd, CBitStream@ data)

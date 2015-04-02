@@ -77,12 +77,12 @@ namespace mc
 		int spacepos = commandin.find(" ");
 		if (spacepos == -1)
 		{
-			string[] none; // workaround
+			string[] none; // seems like there's no workaround to do this. that's not too ugly but i don't like that, duh.
 			return none;
 		}
 		else
 		{
-			commandin = commandin.substr(spacepos, -1);
+			commandin = commandin.substr(spacepos + 1, -1);
 			return commandin.split(" ");
 		}
 	}

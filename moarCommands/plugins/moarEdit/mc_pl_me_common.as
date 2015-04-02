@@ -50,5 +50,4 @@ int StringToTile(string tilename)
 void cmd_blockhelp(string[] arguments, CPlayer@ fromplayer)
 {
 	mc::getMsg(fromplayer) << "Block names [" +tilenames.size()+"]: " << tilenames << mc::rdy();
-	
 }

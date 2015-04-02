@@ -23,8 +23,12 @@ void onReload(CRules@ this)
 void cmd_me(string[] arguments, CPlayer@ fromplayer)
 {
 	mc::getMsg(fromplayer) << "== Welcome to moarEdit. ==" << mc::rdy()
-						   << "= Fear not, child; thou shan't despair." << mc::rdy()
-						   << "= For help with tile names use !blockhelp" << mc::rdy();
+						   << "= Tutorial on using : " << mc::rdy()
+						   << "= !brush allows you to turn on the mouse brush." << mc::rdy()
+						   << "= !bsize [size] allows you to tweak the mouse brush size; from 1 to 10." << mc::rdy()
+						   << "= !btype [brushmode] allows you to change the brush filling system. There are currently 3 : circle, square and pixel." << mc::rdy()
+						   << "= !btile [tile] allows you to change the mouse brush tile. Type !blockhelp for a list of those." << mc::rdy()
+						   << "= !setblock [tile] <x> <y> allows you to set a tile at the specified coordinates." << mc::rdy();
 }
 
 void cmd_setblock(string[] arguments, CPlayer@ fromplayer)
@@ -35,21 +39,21 @@ void cmd_setblock(string[] arguments, CPlayer@ fromplayer)
 		mc::getMsg(fromplayer) << "Could not process command (player has no blob)" << mc::rdy(); //TODO: Use error classes after so it can be found easily
 		return;
 	}
-	if(arguments.size() == 2)
+	if(arguments.size() == 1)
 	{
-		int tile = StringToTile(arguments[1]);
+		int tile = StringToTile(arguments[0]);
 		if(tile == -1)
-			{mc::getMsg(fromplayer) << arguments[1] + " is not a proper tile" << mc::rdy(); return;}
+			{mc::getMsg(fromplayer) << arguments[0] + " is not a proper tile" << mc::rdy(); return;}
 
 		getMap().server_SetTile(blob.getAimPos(), tile);
 	}
-	else if(arguments.size() == 4)
+	else if(arguments.size() == 3)
 	{
-		int tile = StringToTile(arguments[1]);
+		int tile = StringToTile(arguments[0]);
 		if(tile == -1)
-			{mc::getMsg(fromplayer) << arguments[1] + " is not a proper tile" << mc::rdy(); return;}
+			{mc::getMsg(fromplayer) << arguments[0] + " is not a proper tile" << mc::rdy(); return;}
 
-		getMap().server_SetTile(Vec2f(parseFloat(arguments[2]), parseFloat(arguments[3])), tile);
+		getMap().server_SetTile(Vec2f(parseFloat(arguments[1]), parseFloat(arguments[2])), tile);
 	}
 	else
 	{

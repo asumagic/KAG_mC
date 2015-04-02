@@ -40,3 +40,13 @@ void onTick( CBlob@ this )
 		}
 	}
 }
+
+void onDie( CBlob@ this )
+{
+	CPlayer@ player = this.getPlayer();
+	if(player !is null)
+	{
+		player.set_bool("brush on", false);		
+		mc::getMsg(player) << "Brush deactivated." << mc::rdy();
+	}
+}
