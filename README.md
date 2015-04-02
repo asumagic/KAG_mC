@@ -54,7 +54,6 @@ Then make it load in some rule file. (Or use CRules::AddScript()).
   - [ ] moarSecurity
   - [ ] moarGUI
   - [x] moarEdit (Under heavy modfications, but it's doing basic stuff.)
-  - 
 - [ ] Documentation
 
 Feel free to suggest new features and to improve the code!
