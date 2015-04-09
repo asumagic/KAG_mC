@@ -7,6 +7,7 @@
 //
 
 #include "mc_messageutil.as"
+#include "mc_securityutil.as"
 
 namespace mc
 {
@@ -200,8 +201,15 @@ namespace mc
 				{
 					string wholecommand = data.read_string();
 					CPlayer@ invoker = getPlayerByNetworkId(data.read_u16());
-					
-					mc::commandcallbacks[i](mc::getArguments(wholecommand), invoker);
+
+					if (isCommandAllowed(commandname, invoker))
+					{					
+						mc::commandcallbacks[i](mc::getArguments(wholecommand), invoker);
+					}
+					else
+					{
+						mc::getMsg(invoker) << "You are not allowed to execute this command!" << mc::rdy();
+					}
 				}
 			}
 		}

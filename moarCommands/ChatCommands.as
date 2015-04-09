@@ -20,6 +20,8 @@ namespace mc
 		this.AddScript("mc_pl_std_mc.as");
 		this.AddScript("mc_pl_std_apidemo.as");
 		this.AddScript("mc_pl_std_doc.as");
+		this.AddScript("mc_pl_std_legacy.as");
+		this.AddScript("mc_pl_std_spawn.as");
 	}
 
 	void setupLoadmE(CRules@ this)

@@ -11,7 +11,8 @@ namespace mc
 	{
 		CSecurity@ security = getSecurity();
 		if (security.checkAccess_Feature(player, "mc_all") ||
-			security.checkAccess_Feature(player, "mc_cmd_" + command))
+			security.checkAccess_Feature(player, "mc_cmd_" + command) ||
+			security.checkAccess_Command(player, "ALL"))
 		{
 			return true;
 		}
