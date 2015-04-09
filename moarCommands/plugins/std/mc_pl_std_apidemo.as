@@ -1,10 +1,15 @@
 #include "mc_commandutil.as"
 #include "mc_messageutil.as"
 
+#include "mc_pl_std_doc_common.as"
+
 void onInit(CRules@ this)
 {
 	mc::registerCommand("demomsg", cmd_demomsg);
+	mc::registerDoc("demomsg", "Part of the demolib - Prints a list showing up mC's msg classes capacities.");
+
 	mc::registerCommand("demoargs", cmd_demoargs);
+	mc::registerDoc("demoargs", "Part of the demolib - Prints a list of the entered arguments.");
 }
 
 void onReload(CRules@ this)

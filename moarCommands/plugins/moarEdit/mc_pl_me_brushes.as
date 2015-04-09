@@ -219,5 +219,5 @@ void cmd_btile(string[] arguments, CPlayer@ fromplayer)
 	}
 
 	fromplayer.set_u8("brush tile", tile);
-	mc::getMsg(fromplayer) << "Brush tile set to " +tile+ "." << mc::rdy();
+	mc::getMsg(fromplayer) << "Brush tile set to " << tile << "." << mc::rdy();
 }

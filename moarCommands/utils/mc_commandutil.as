@@ -83,8 +83,110 @@ namespace mc
 		else
 		{
 			commandin = commandin.substr(spacepos + 1, -1);
-			return commandin.split(" ");
+			string[] arguments = commandin.split(" ");
+
+			// Modifiers works like that : %modifier:arg1,arg2,arg3%
+
+			for(u16 i = 0; i < arguments.size(); i++)
+			{
+				bool inmodifier = false;
+				int modifierpos = -1;
+	
+				bool waitforval = false;
+				int valpos = -1;
+
+				bool waitforotherval = false;
+				int othervalpos = -1;
+
+				string modifiername;
+
+				string[] modifierarguments;
+
+				for (u16 j = 0; j < arguments[i].size(); j++)
+				{
+					if (arguments[i][j] == 37) // %
+					{
+						if (inmodifier)
+						{
+							if (modifiername != "")
+							{
+								modifiername == arguments[i].substr(modifierpos, j - modifierpos);
+							}
+
+							string modif;
+							arguments[i] = arguments[i].substr(0, modifierpos) + modif + arguments[i].substr(modifierpos + modif.size() - 2, -1);
+
+							if (waitforval)
+							{
+								string[] noarg;
+								modif = getModifier(commandin.substr(modifierpos + 1, j - modifierpos - 1), noarg);
+							}
+							else
+							{
+								modif = getModifier(commandin.substr(modifierpos + 1, j - modifierpos - 1), modifierarguments);
+							}
+
+							j = modifierpos + modif.size() - 1;
+
+							print(arguments[i]);
+
+							// reset
+							inmodifier = false;
+							modifierpos = -1;
+
+							waitforval = false;
+							valpos = -1;
+
+							waitforotherval = false;
+							othervalpos = -1;
+						}
+						else
+						{
+							inmodifier = true;
+							modifierpos = j;
+	
+							waitforval = true;
+						}
+					}
+					else if (arguments[i][j] == 58) // :
+					{
+						if (inmodifier)
+						{
+							if (waitforval == false)
+							{
+								warn("Modifier parse error : Unexcepted token ':'");
+							}
+							else
+							{
+								modifiername = arguments[i].substr(modifierpos, j - modifierpos);
+
+								waitforval = false;
+								valpos = j;
+							}
+						}
+					}
+					else if (arguments[i][j] == 44) // ,
+					{
+	
+					}
+					else if (j == arguments[i].size() - 1)
+					{
+						if (inmodifier)
+						{
+							warn("Modifier parse error : Excepted token '%'");
+						}
+					}
+				}
+			}
+
+			return arguments;
 		}
+	}
+
+	string getModifier(string modifier, string[] arguments)
+	{
+		getMsg(null) << "Modifier detected. Modifier name : '" << modifier << "'. Arguments [" << arguments.size() << "] : " << arguments << rdy();
+		return "nothing";
 	}
 
 	void catchCommand(CRules@ this, u8 cmd, CBitStream@ data)

@@ -3,16 +3,31 @@
 #include "mc_pl_me_common.as"
 #include "mc_pl_me_brushes.as"
 
+#include "mc_pl_std_doc_common.as"
+
 void onInit(CRules@ this)
 {
 	mc::registerCommand("me", cmd_me);
+	mc::registerDoc("me", "moarEdit's main command. Features, for now, a little tutorial on using.");
+
 	mc::registerCommand("blockhelp", cmd_blockhelp); // defined in common
+	mc::registerDoc("blockhelp", "Prints a list of available blocks.");
+
 	mc::registerCommand("setblock", cmd_setblock);
+	mc::registerDoc("setblock", "Sets the specified block (You can get a list of those using !blockhelp) at the specified coordinates.");
+
 	
 	mc::registerCommand("brush", cmd_brush);
+	mc::registerDoc("brush", "Toggles the mouse brush.");
+
 	mc::registerCommand("bsize", cmd_bsize);
+	mc::registerDoc("bsize", "Changes the mouse brush size.");
+
 	mc::registerCommand("btype", cmd_btype);
+	mc::registerDoc("btype", "Changes the mouse brush type. Available types : pixel, circle and square.");
+
 	mc::registerCommand("btile", cmd_btile);
+	mc::registerDoc("btile", "Changes the mouse brush tile (You can get a list of those using !blockhelp).");
 }
 
 void onReload(CRules@ this)
