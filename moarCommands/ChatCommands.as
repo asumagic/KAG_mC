@@ -7,6 +7,15 @@
 // This mC build was designed for build : 1387
 //
 
+#include "mc_commandutil.as"
+string[] std_scripts = {"mc_pl_std_mc.as",
+						"mc_pl_std_apidemo.as",
+						"mc_pl_std_doc.as",
+						"mc_pl_std_legacy.as",
+						"mc_pl_std_spawn.as",
+						"mc_pl_std_various.as",
+						"mc_pl_me_base.as"};
+
 namespace mc
 {
 	void setupCommonCommands(CRules@ this)
@@ -17,30 +26,30 @@ namespace mc
 
 	void setupLoadSTD(CRules@ this)
 	{
-		this.AddScript("mc_pl_std_mc.as");
-		this.AddScript("mc_pl_std_apidemo.as");
-		this.AddScript("mc_pl_std_doc.as");
-		this.AddScript("mc_pl_std_legacy.as");
-		this.AddScript("mc_pl_std_spawn.as");
+		for(uint i = 0; i < std_scripts.size(); i++)
+		{
+			this.AddScript(std_scripts[i]);
+		}
 	}
 
-	void setupLoadmE(CRules@ this)
+	void setupUnloadSTD(CRules@ this)
 	{
-		this.AddScript("mc_pl_me_base.as");
+		for(uint i = 0; i < std_scripts.size(); i++)
+		{
+			this.RemoveScript(std_scripts[i]);
+		}
 	}
 }
 
 void onInit(CRules@ this)
 {
-	//CRules@ this = getRules();
-
 	warn("moarCommands is initializing...");
 
 	print("Initializing common commands");
 	mc::setupCommonCommands(this);
-
+	
 	print("Loading handlers");
-
+	
 	if (getNet().isServer())
 	{
 		// We're removing the script first so we don't get a script running twice (not sure if done automatically)
@@ -56,15 +65,8 @@ void onInit(CRules@ this)
 		getRules().AddScript("mc_handler_cl.as");
 	}
 
-	print("Initializing STD");
+	print("Initializing mC's STD");
 	mc::setupLoadSTD(this);
-	print("Initializing moarEdit");
-	mc::setupLoadmE(this);
-
+	
 	warn("moarCommands initialized.");
-}
-
-void onReload(CRules@ this)
-{
-	onInit(this);
 }

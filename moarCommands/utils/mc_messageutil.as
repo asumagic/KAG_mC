@@ -13,7 +13,7 @@ namespace mc
 
 	// If player is null, this will set out the output to server automatically, so 'getMsg() << "Hello World" << rdy();' will work.
 	// Else, if out is false, the message will be sent to the console, otherwise in the chat.
-	mc::msgout getMsg(CPlayer@ player = null, bool outmode = true)
+	mc::msgout getMsg(CPlayer@ player, bool outmode = true)
 	{
 		if (player is null)
 		{
@@ -25,7 +25,7 @@ namespace mc
 		}
 	}
 
-	mc::msgout getMsg(string player = "", bool outmode = true)
+	mc::msgout getMsg(string player, bool outmode = true)
 	{
 		CPlayer@ pointedplayer = getPlayerByUsername(player);
 		if (pointedplayer is null)
@@ -37,6 +37,14 @@ namespace mc
 			return clout(pointedplayer, outmode);
 		}
 	}
+
+	// Console output
+	mc::msgout getMsg()
+	{
+		return msgout();
+	}
+
+	
 
 	// This is kind of a line jump but more generally it's sending the message and flushing the internal string.
 	// So everytime you're putting text in the msgout, you *must* put in a rdy too!

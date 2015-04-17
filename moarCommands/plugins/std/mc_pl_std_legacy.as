@@ -19,6 +19,9 @@ void onInit(CRules@ this)
 	mc::registerCommand("spawnwater", cmd_spawnwater);
 	mc::registerDoc("spawnwater", "Floods the tile at the player position.");
 
+	mc::registerCommand("spawnfire", cmd_spawnfire);
+	mc::registerDoc("spawnfire", "Burns the tile at the player position.");
+
 	mc::registerCommand("coins", cmd_givecoins);
 	mc::registerDoc("coins", "Gives coins to the player.");
 
@@ -70,7 +73,22 @@ string getRandomName()
 							"Lancelot",
 							"Stanley",
 							"Standing",
-							"[Insert a cool name]"};
+							"[Insert a cool name]",
+							"Jacques",
+							"Marie-Antoinnette",
+							"Jean-Jean",
+							"Jean Dujardin",
+							"Wonderman",
+							"Sandwich",
+							"Fry",
+							"Isaac",
+							"Louis",
+							"François",
+							"John",
+							"Max",
+							"Ponyman",
+							"Galen is pink",
+							"Hellman"};
 
 	return names[XORRandom(names.size())];
 }
@@ -93,6 +111,15 @@ void cmd_spawnwater(string[] arguments, CPlayer@ fromplayer)
 	if (blob !is null)
 	{
 		getMap().server_setFloodWaterWorldspace(blob.getPosition(), true);
+	}
+}
+
+void cmd_spawnfire(string[] arguments, CPlayer@ fromplayer)
+{
+	CBlob@ blob = fromplayer.getBlob();
+	if (blob !is null)
+	{
+		getMap().server_setFireWorldspace(blob.getPosition(), true);
 	}
 }
 

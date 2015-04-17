@@ -199,7 +199,7 @@ void cmd_btype(string[] arguments, CPlayer@ fromplayer)
 	}
 
 	fromplayer.set_u8("brush type", type);
-	mc::getMsg(fromplayer) << "Brush type set to " +BrushNames[type]+ "." << mc::rdy();
+	mc::getMsg(fromplayer) << "Brush type set to " + BrushNames[type] + "." << mc::rdy();
 }
 
 void cmd_btile(string[] arguments, CPlayer@ fromplayer)
@@ -219,5 +219,45 @@ void cmd_btile(string[] arguments, CPlayer@ fromplayer)
 	}
 
 	fromplayer.set_u8("brush tile", tile);
+	fromplayer.set_bool("brush mode", false);
 	mc::getMsg(fromplayer) << "Brush tile set to " << tile << "." << mc::rdy();
+}
+
+void cmd_bblob(string[] arguments, CPlayer@ fromplayer)
+{
+	if(arguments.size() != 1)
+	{
+		mc::getMsg(fromplayer) << "Invalid arguments; proper usage: !bblobtile [blob]." << mc::rdy();
+		return;
+	}
+
+	CBlob@ blob = server_CreateBlob(arguments[0]);
+	if (blob is null)
+	{
+		mc::getMsg(fromplayer) << "Invalid blob name." << mc::rdy();
+		return;
+	}
+
+	snapBlob(blob);
+	
+	if (!blob.isSnapToGrid())
+	{
+		mc::getMsg(fromplayer) << "Blob found, but does not seem to be a proper tile. Still proceeding, even though you may be encountering strange issues." << mc::rdy();
+	}
+
+	fromplayer.set_string("brush blob", arguments[0]);
+	fromplayer.set_bool("brush mode", true);
+	mc::getMsg(fromplayer) << "Brush blob set to " << arguments[0] << "." << mc::rdy();
+}
+
+void cmd_bpic(string[] arguments, CPlayer@ fromplayer)
+{
+	if (arguments.size() != 1)
+	{
+		mc::getMsg(fromplayer) << "Usage : !bpicture [filename]" << mc::rdy(); // todo: auto
+	}
+	else
+	{
+		fromplayer.set_string("brush picture", arguments[0]);
+	}
 }

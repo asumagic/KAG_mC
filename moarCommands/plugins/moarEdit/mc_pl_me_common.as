@@ -51,3 +51,16 @@ void cmd_blockhelp(string[] arguments, CPlayer@ fromplayer)
 {
 	mc::getMsg(fromplayer) << "Block names [" +tilenames.size()+"]: " << tilenames << mc::rdy();
 }
+
+void cmd_picturehelp(string[] arguments, CPlayer@ fromplayer)
+{
+	string[] picturebrushes;
+	CFileMatcher brushmatcher("brush_");
+
+	while (brushmatcher.iterating())
+	{
+		picturebrushes.push_back(brushmatcher.getCurrent());
+	}
+
+	mc::getMsg(fromplayer) << "Block names [" +picturebrushes.size()+"]: " << picturebrushes << mc::rdy();
+}

@@ -26,10 +26,14 @@ bool onServerProcessChat(CRules@ this, const string &in textIn, string &out text
 			if (mc::commands[ccom] == command)
 			{
 				mc::sendCommand(command, textIn, player);
-				return true;
+				return false;
 			}
 		}
-		mc::getMsg(player) << "The requested command was not found." << mc::rdy();
+		mc::getMsg(player) << "The requested command was not found." << mc::rdy()
+						   << "Note: This is not a regular ChatCommands.as server." << mc::rdy()
+						   << "Did you mean : !s " << command << "?" << mc::rdy();
+
+		return false;
 	}
 
 

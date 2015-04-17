@@ -39,7 +39,8 @@ namespace mc
 
 	void unregisterCommand(string commandname)
 	{
-		syncGetCommands();
+		// todo: rewrite
+		/*syncGetCommands();
 
 		for(uint i = 0; i < commands.size(); i++)
 		{
@@ -50,7 +51,7 @@ namespace mc
 			}
 		}
 
-		syncSetCommands();
+		syncSetCommands();*/
 	}
 
 	void sendCommand(string command, string wholecommand, CPlayer@ invoker)
@@ -71,6 +72,11 @@ namespace mc
 	string getCommand(string commandin)
 	{
 		return commandin.substr(1, commandin.find(" ") - 1);
+	}
+
+	void flushCommands()
+	{
+		getRules().set("mc_commands", null);
 	}
 
 	string[] getArguments(string commandin)
