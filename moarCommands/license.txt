@@ -9,7 +9,7 @@ This software is provided 'as-is', without any express or implied warranty. In n
 
 You are free to use this mod for any purpose, including commercial uses. You are free to alter and redistribute it freely, subject to the following restrictions :
 
-1. You must not claim this mod as yours. Distributing this mod, even from modified parts, you must link to the original version of this mod (https://forum.kag2d.com/resources/moarcommands.210/) and post a message in this specifying you are using this mod (including the server name if you're hosting it).
+1. You must not claim this mod as yours. Distributing this mod, even from modified parts, you must link to the original version of this mod (https://forum.kag2d.com/resources/moarcommands.210/) and posting a message in the forums is appreciated, even though not required.
 
 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original mod.
 

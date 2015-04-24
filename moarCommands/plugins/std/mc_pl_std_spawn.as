@@ -23,7 +23,7 @@ void cmd_spawn(string[] arguments, CPlayer@ fromplayer)
 
 	if (arguments.size() == 0)
 	{
-		mc::getMsg(fromplayer) << "Please use as this : !s [blobname] <team> <x> <y>" << mc::rdy();
+		mc::getMsg(fromplayer) << "Please use as this : !s [blobname] <team> <x> <y> scripts>" << mc::rdy();
 		return;
 	}
 	else if (arguments.size() == 1)
@@ -56,6 +56,16 @@ void cmd_spawn(string[] arguments, CPlayer@ fromplayer)
 			pos = Vec2f(parseFloat(arguments[2]), parseFloat(arguments[3]));
 		}
 	}
+	else if (arguments.size() > 4)
+	{
+		name = arguments[0];
+		CBlob@ blob = fromplayer.getBlob();
+		if (blob !is null)
+		{
+			teamid = parseInt(arguments[1]);
+			pos = Vec2f(parseFloat(arguments[2]), parseFloat(arguments[3]));
+		}
+	}
 	else
 	{
 		mc::getMsg(fromplayer) << "Please use as this : !s [blobname] <team> <x> <y>" << mc::rdy(); //  FREAKING NEED TO IMPLENT ERRORS.
@@ -64,9 +74,18 @@ void cmd_spawn(string[] arguments, CPlayer@ fromplayer)
 
 	if (!getSecurity().checkAccess_Feature(fromplayer, "mc_restrict_" + name))
 	{
-		if (server_CreateBlob(name, teamid, pos) is null)
+		CBlob@ spawned = server_CreateBlob(name, teamid, pos);
+
+		if (spawned is null)
 		{
 			mc::getMsg(fromplayer) << "The blob requested couldn't be spawned. It most likely wasn't found." << mc::rdy();
+		}
+		else
+		{
+			for(uint i = 4; i < arguments.size(); i++)
+			{
+				spawned.AddScript(arguments[i]);
+			}
 		}
 	}
 	else
