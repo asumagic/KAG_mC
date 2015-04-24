@@ -13,7 +13,7 @@ namespace mc
 
 	// If player is null, this will set out the output to server automatically, so 'getMsg() << "Hello World" << rdy();' will work.
 	// Else, if out is false, the message will be sent to the console, otherwise in the chat.
-	mc::msgout getMsg(CPlayer@ player, bool outmode = true)
+	mc::msgout getMsg(CPlayer@ player, bool outmode = true, SColor color = SColor(255, 0, 127, 0))
 	{
 		if (player is null)
 		{
@@ -21,11 +21,11 @@ namespace mc
 		}
 		else
 		{
-			return clout(player, outmode);
+			return clout(player, outmode, color);
 		}
 	}
 
-	mc::msgout getMsg(string player, bool outmode = true)
+	mc::msgout getMsg(string player, bool outmode = true, SColor color = SColor(255, 0, 127, 0))
 	{
 		CPlayer@ pointedplayer = getPlayerByUsername(player);
 		if (pointedplayer is null)
@@ -34,7 +34,7 @@ namespace mc
 		}
 		else
 		{
-			return clout(pointedplayer, outmode);
+			return clout(pointedplayer, outmode, color);
 		}
 	}
 
@@ -188,16 +188,23 @@ namespace mc
 
 	class clout : msgout
 	{
-		clout(CPlayer@ player, bool outmode)
+		clout(CPlayer@ player, bool outmode, SColor color)
 		{
 			@pointedplayer = player;
 			textoutmode = outmode;
+			textcolor = color;
 		}
+
 		void put()
 		{
 			CBitStream textstream;
 			textstream.write_string(istr);
 			textstream.write_bool(textoutmode);
+
+			textstream.write_u8(textcolor.getRed());
+			textstream.write_u8(textcolor.getGreen());
+			textstream.write_u8(textcolor.getBlue());
+
 
 			CRules@ rules = getRules();
 			rules.SendCommand(rules.getCommandID("mc_strsend"), textstream, pointedplayer);
@@ -207,5 +214,6 @@ namespace mc
 
 		private CPlayer@ pointedplayer;
 		private bool textoutmode;
+		private SColor textcolor(255, 0, 127, 0);
 	};
 }

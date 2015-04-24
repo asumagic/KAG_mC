@@ -25,7 +25,11 @@ void onCommand(CRules@ this, u8 cmd, CBitStream @params)
 
 		if (outmode)
 		{
-			client_AddToChat(textoutput, SColor(255, 0, 127, 0));
+			u8 r = params.read_u8();
+			u8 g = params.read_u8();
+			u8 b = params.read_u8();
+
+			client_AddToChat(textoutput, SColor(255, r, g, b));
 		}
 		else
 		{

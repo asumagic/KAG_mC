@@ -9,24 +9,26 @@
 
 namespace mc
 {
-	enum standarderrors
+	string[][] errorarray =
 	{
-		command_notfound = 0,
+		{"command_notfound", "Syntax > Command '%' not found. Did you mean : '%'?"},
+		{"command_badarguments", "Syntax > Bad arguments for '%'. Syntax : '%'"},
 
-		security_norights,
-		security_disabled
+		{"syntax_unexceptedtoken", "Syntax > Unexcepted token '%'"},
+		{"syntax_exceptedtoken", "Syntax > Syntax > Excepted token '%'"},
+
+		{"security_norights", "Security > Player % is not allowed to run '%'."},
+		{"security_disabled", "Security > Command '%' found, but is disabled."}
 	};
 
-	string[] standarderrors_strings =
+	void putError(CPlayer@ player, string err)
 	{
-		"Command '%c' not found.",
-
-		"Player %p is not allowed to run '%c'.",
-		"Command '%c' found, but is disabled."
-	};
-
-	void putError(CPlayer@ player, u16 errorid)
-	{
-		
+		for (uint i = 0; i < errorarray.size(); i++)
+		{
+			if (errorarray[i][0] == err)
+			{
+				mc::getMsg(player, true, SColor(255, 200, 0, 0)) << errorarray[i][1] << mc::rdy();
+			}
+		}
 	}
 }

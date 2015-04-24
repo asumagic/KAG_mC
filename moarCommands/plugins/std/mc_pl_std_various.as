@@ -1,5 +1,6 @@
 #include "mc_commandutil.as"
 #include "mc_messageutil.as"
+#include "mc_errorutil.as"
 
 #include "mc_pl_std_doc_common.as"
 
@@ -28,6 +29,7 @@ void cmd_tod(string[] arguments, CPlayer@ fromplayer)
 	if (arguments.size() != 1)
 	{
 		mc::getMsg(fromplayer) << "Usage : !settod [time]" << mc::rdy();
+		mc::putError(fromplayer, "command_badarguments");
 	}
 	else
 	{
