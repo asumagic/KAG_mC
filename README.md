@@ -50,7 +50,7 @@ Then make it load in some rule file. (Or use CRules::AddScript()).
   - [ ] Errors
 - [ ] Most of the planned commands
   - [ ] **moarCore**
-  - [ ] moarSpawn
+  - [x] moarSpawn
   - [ ] moarSecurity
   - [ ] moarGUI
   - [x] moarEdit (Under heavy modfications, but it's doing basic stuff.)
