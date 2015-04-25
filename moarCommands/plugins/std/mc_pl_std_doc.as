@@ -1,5 +1,6 @@
 #include "mc_commandutil.as"
 #include "mc_messageutil.as"
+#include "mc_errorutil.as"
 
 #include "mc_pl_std_doc_common.as"
 
@@ -18,12 +19,13 @@ void cmd_man(string[] arguments, CPlayer@ fromplayer)
 {
 	if (arguments.size() != 1)
 	{
-		mc::getMsg(fromplayer) << "Please use !man [command]" << mc::rdy(); // shout at him
+		string[] errorargs = {"man", "!man [command]"};
+		mc::putError(fromplayer, "command_badarguments", errorargs);
 	}
 	else
 	{
 		string man = mc::getMan(arguments[0]);
-		mc::getMsg(fromplayer) << "= Command manual for : " << arguments[0] << mc::rdy() << man << mc::rdy();
+		mc::getMsg(fromplayer) << "= Manual entry for : " << arguments[0] << mc::rdy() << man << mc::rdy();
 	}
 }
 

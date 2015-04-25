@@ -1,5 +1,6 @@
 #include "mc_commandutil.as"
 #include "mc_messageutil.as"
+#include "mc_errorutil.as"
 
 #include "mc_pl_std_doc_common.as"
 

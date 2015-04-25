@@ -7,10 +7,17 @@
 
 #include "mc_messageutil.as"
 #include "mc_commandutil.as"
+#include "mc_errorutil.as"
 
 void onInit(CRules@ this)
 {
 	print("Loading server script...");
+}
+
+string getCommandSuggestionFor(string command)
+{
+	// TODO : Make this wayyy better (recongizion engine?)
+	return "!s " + command;
 }
 
 bool onServerProcessChat(CRules@ this, const string &in textIn, string &out textOut, CPlayer@ player)
@@ -29,9 +36,9 @@ bool onServerProcessChat(CRules@ this, const string &in textIn, string &out text
 				return false;
 			}
 		}
-		mc::getMsg(player) << "The requested command was not found." << mc::rdy()
-						   << "Note: This is not a regular ChatCommands.as server." << mc::rdy()
-						   << "Did you mean : !s " << command << "?" << mc::rdy();
+
+		string[] errorargs = {command, getCommandSuggestionFor(command)};
+		mc::putError(player, "command_notfound", errorargs);
 
 		return false;
 	}

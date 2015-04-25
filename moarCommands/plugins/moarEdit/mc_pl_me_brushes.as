@@ -2,6 +2,8 @@
 
 #include "mc_commandutil.as"
 #include "mc_messageutil.as"
+#include "mc_errorutil.as"
+
 #include "mc_pl_me_common.as"
 #include "mc_pl_me_brushes_common.as"
 
@@ -10,7 +12,8 @@ void toggle_brush(CPlayer@ fromplayer)
 	CBlob@ blob = fromplayer.getBlob();
 		if(blob is null)
 		{
-			mc::getMsg(fromplayer) << "Could not turn on brush; Player has no blob" << mc::rdy();
+			string[] errorargs = {"brush"};
+			mc::putError(fromplayer, "player_blobunknown", errorargs);
 			return;
 		}
 		if(!fromplayer.exists("brush on"))
@@ -39,7 +42,8 @@ void set_size(string argument, CPlayer@ fromplayer)
 
 	if(size < 1 || size > 10)
 	{
-		mc::getMsg(fromplayer) << "Brush size invalid (must be an integer from 1 to 10)" << mc::rdy();
+		string[] errorargs = {"" + size, "0", "10"};
+		mc::putError(fromplayer, "invalid_size", errorargs);
 	}
 	else
 	{
@@ -54,7 +58,11 @@ void set_type(string argument, CPlayer@ fromplayer)
 
 	if(type == -1 || type >= BrushNames.size())
 	{
-		mc::getMsg(fromplayer) << "Invalid brush type. Available types are: " << BrushNames << mc::rdy();
+		string put;
+		for (uint i = 0; i < BrushNames.size(); i++) {put += BrushNames[i] + ", ";}
+
+		string[] errorargs = {argument, put};
+		mc::putError(fromplayer, "invalid_brush", errorargs);
 	}
 	else
 	{
@@ -69,7 +77,8 @@ void set_tile(string argument, CPlayer@ fromplayer)
 
 	if(tile == -1)
 	{
-		mc::getMsg(fromplayer) << "Invalid tile type. Type !blockhelp for a list of types." << mc::rdy();
+		string[] errorargs = {argument};
+		mc::putError(fromplayer, "block_notfound", errorargs);
 	}
 	else
 	{
@@ -101,11 +110,11 @@ void cmd_brush(string[] arguments, CPlayer@ fromplayer)
 	}
 	else if(arguments.size() > 8)
 	{
-		mc::getMsg(fromplayer) << "Too many arguments. Like, really, you've used over 8. That's like, much." << mc::rdy()
-							   << "High chances are your country doesn't have this many centuries." << mc::rdy()
-							   << "If you had a planet for each argument you used, you could make a planetary system bigger than ours." << mc::rdy()
-							   << "You'd need a star and some asteroids too, but eight is still much." << mc::rdy()
-							   << "Just consider setting up your brush with less than 8 arguments, all I'm asking for." << mc::rdy();
+		mc::getMsg(fromplayer, true, SColor(255, 215, 123, 186))	<< "Too many arguments. Like, really, you've used over 8. That's like, much." << mc::rdy()
+							   										<< "High chances are your country doesn't have this many centuries." << mc::rdy()
+							   										<< "If you had a planet for each argument you used, you could make a planetary system bigger than ours." << mc::rdy()
+							   										<< "You'd need a star and some asteroids too, but eight is still much." << mc::rdy()
+							   										<< "Just consider setting up your brush with less than 8 arguments, all I'm asking for." << mc::rdy();
 	}
 	else
 	{
@@ -139,7 +148,8 @@ void cmd_brush(string[] arguments, CPlayer@ fromplayer)
 		CBlob@ blob = fromplayer.getBlob();
 		if(blob is null)
 		{
-			mc::getMsg(fromplayer) << "Could not turn on brush; Player has no blob" << mc::rdy();
+			string[] errorargs = {"brush"};
+			mc::putError(fromplayer, "player_blobunknown", errorargs);
 			return;
 		}
 
@@ -166,7 +176,8 @@ void cmd_bsize(string[] arguments, CPlayer@ fromplayer)
 {
 	if(arguments.size() != 1)
 	{
-		mc::getMsg(fromplayer) << "Invalid arguments; proper usage: !bsize [size]" << mc::rdy();
+		string[] errorargs = {"bsize", "!bsize [size]"};
+		mc::putError(fromplayer, "command_badarguments", errorargs);
 		return;
 	}
 
@@ -174,7 +185,8 @@ void cmd_bsize(string[] arguments, CPlayer@ fromplayer)
 
 	if(size < 1 || size > 10)
 	{
-		mc::getMsg(fromplayer) << "Brush size invalid (must be an integer from 1 to 10)" << mc::rdy();
+		string[] errorargs = {"" + size, "0", "10"};
+		mc::putError(fromplayer, "invalid_size", errorargs);
 		return;
 	}
 
@@ -186,7 +198,8 @@ void cmd_btype(string[] arguments, CPlayer@ fromplayer)
 {
 	if(arguments.size() != 1)
 	{
-		mc::getMsg(fromplayer) << "Invalid arguments; proper usage: !btype [type]. Available types are: " << BrushNames << mc::rdy();
+		string[] errorargs = {"btype", "!btype [type]"};
+		mc::putError(fromplayer, "command_badarguments", errorargs);
 		return;
 	}
 
@@ -194,7 +207,8 @@ void cmd_btype(string[] arguments, CPlayer@ fromplayer)
 
 	if(type == -1 || type >= BrushNames.size())
 	{
-		mc::getMsg(fromplayer) << "Invalid brush type. Available types are: " << BrushNames << mc::rdy();
+		string[] errorargs = {arguments[0]};
+		mc::putError(fromplayer, "invalid_brush", errorargs);
 		return;
 	}
 
@@ -206,7 +220,8 @@ void cmd_btile(string[] arguments, CPlayer@ fromplayer)
 {
 	if(arguments.size() != 1)
 	{
-		mc::getMsg(fromplayer) << "Invalid arguments; proper usage: !btile [tile]. Available types are: " << tilenames << mc::rdy();
+		string[] errorargs = {"btile", "!bile [tile]"};
+		mc::putError(fromplayer, "command_badarguments", errorargs);
 		return;
 	}
 
@@ -214,7 +229,8 @@ void cmd_btile(string[] arguments, CPlayer@ fromplayer)
 
 	if(tile == -1)
 	{
-		mc::getMsg(fromplayer) << "Invalid tile type. Type !blockhelp for a list of types." << mc::rdy();
+		string[] errorargs = {arguments[0]};
+		mc::putError(fromplayer, "block_notfound", errorargs);
 		return;
 	}
 
@@ -227,14 +243,16 @@ void cmd_bblob(string[] arguments, CPlayer@ fromplayer)
 {
 	if(arguments.size() != 1)
 	{
-		mc::getMsg(fromplayer) << "Invalid arguments; proper usage: !bblobtile [blob]." << mc::rdy();
+		string[] errorargs = {"bblobtile", "!bblobtile [blobtile]"};
+		mc::putError(fromplayer, "command_badarguments", errorargs);
 		return;
 	}
 
 	CBlob@ blob = server_CreateBlob(arguments[0]);
 	if (blob is null)
 	{
-		mc::getMsg(fromplayer) << "Invalid blob name." << mc::rdy();
+		string[] errorargs = {"btileblob"};
+		mc::putError(fromplayer, "blob_unknown", errorargs);
 		return;
 	}
 
@@ -242,7 +260,7 @@ void cmd_bblob(string[] arguments, CPlayer@ fromplayer)
 	
 	if (!blob.isSnapToGrid())
 	{
-		mc::getMsg(fromplayer) << "Blob found, but does not seem to be a proper tile. Still proceeding, even though you may be encountering strange issues." << mc::rdy();
+		mc::getMsg(fromplayer, true, SColor(255, 250, 200, 50)) << "Blob found, but does not seem to be a proper tile. Still proceeding, even though you may be encountering strange issues." << mc::rdy();
 	}
 
 	fromplayer.set_string("brush blob", arguments[0]);
@@ -254,7 +272,8 @@ void cmd_bpic(string[] arguments, CPlayer@ fromplayer)
 {
 	if (arguments.size() != 1)
 	{
-		mc::getMsg(fromplayer) << "Usage : !bpicture [filename]" << mc::rdy(); // todo: auto
+		string[] errorargs = {"bpicture", "!bpicture [picturebrush]"};
+		mc::putError(fromplayer, "command_badarguments", errorargs);
 	}
 	else
 	{

@@ -1,5 +1,6 @@
 #include "mc_commandutil.as"
 #include "mc_messageutil.as"
+#include "mc_errorutil.as"
 
 #include "mc_pl_std_doc_common.as"
 
@@ -21,12 +22,7 @@ void cmd_spawn(string[] arguments, CPlayer@ fromplayer)
 	int teamid = -1;
 	string name;
 
-	if (arguments.size() == 0)
-	{
-		mc::getMsg(fromplayer) << "Please use as this : !s [blobname] <team> <x> <y> scripts>" << mc::rdy();
-		return;
-	}
-	else if (arguments.size() == 1)
+	if (arguments.size() == 1)
 	{
 		name = arguments[0];
 		CBlob@ blob = fromplayer.getBlob();
@@ -68,7 +64,8 @@ void cmd_spawn(string[] arguments, CPlayer@ fromplayer)
 	}
 	else
 	{
-		mc::getMsg(fromplayer) << "Please use as this : !s [blobname] <team> <x> <y>" << mc::rdy(); //  FREAKING NEED TO IMPLENT ERRORS.
+		string[] errorargs = {"s", "!s [blobname] (team) (x - y) (scripts)"};
+		mc::putError(fromplayer, "command_badarguments", errorargs);
 		return;
 	}
 
@@ -78,7 +75,8 @@ void cmd_spawn(string[] arguments, CPlayer@ fromplayer)
 
 		if (spawned is null)
 		{
-			mc::getMsg(fromplayer) << "The blob requested couldn't be spawned. It most likely wasn't found." << mc::rdy();
+			string[] errorargs = {name};
+			mc::putError(fromplayer, "blob_unknown", errorargs);
 		}
 		else
 		{
@@ -90,7 +88,8 @@ void cmd_spawn(string[] arguments, CPlayer@ fromplayer)
 	}
 	else
 	{
-		mc::getMsg(fromplayer) << "This blob spawning was restricted by the server administrator." << mc::rdy();
+		string[] errorargs = {fromplayer.getUsername(), "create blob " + name};
+		mc::putError(fromplayer, "security_norights", errorargs);
 	}
 }
 

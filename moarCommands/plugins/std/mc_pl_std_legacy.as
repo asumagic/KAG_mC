@@ -1,5 +1,6 @@
 #include "mc_commandutil.as"
 #include "mc_messageutil.as"
+#include "mc_errorutil.as"
 
 #include "mc_pl_std_doc_common.as"
 
@@ -101,7 +102,8 @@ void cmd_printblobs(string[] arguments, CPlayer@ fromplayer)
 	for (u32 i = 0; i < all.length; i++)
 	{
 		CBlob@ blob = all[i];
-		print("> "+blob.getName()+" [" + blob.getNetworkID() + "] ");
+		CPlayer@ evplayer = blob.getPlayer();
+		print("> "+blob.getName()+" [" + blob.getNetworkID() + "] " + ((evplayer !is null) ? ("(" + evplayer.getUsername() + ")") : ("")));
 	}
 }
 
@@ -112,6 +114,11 @@ void cmd_spawnwater(string[] arguments, CPlayer@ fromplayer)
 	{
 		getMap().server_setFloodWaterWorldspace(blob.getPosition(), true);
 	}
+	else
+	{
+		string[] errorargs = {"spawnwater"};
+		mc::putError(fromplayer, "player_blobunknown", errorargs);
+	}
 }
 
 void cmd_spawnfire(string[] arguments, CPlayer@ fromplayer)
@@ -121,6 +128,11 @@ void cmd_spawnfire(string[] arguments, CPlayer@ fromplayer)
 	{
 		getMap().server_setFireWorldspace(blob.getPosition(), true);
 	}
+	else
+	{
+		string[] errorargs = {"spawnfire"};
+		mc::putError(fromplayer, "player_blobunknown", errorargs);
+	}
 }
 
 void cmd_givecoins(string[] arguments, CPlayer@ fromplayer)
@@ -129,9 +141,14 @@ void cmd_givecoins(string[] arguments, CPlayer@ fromplayer)
 	{
 		fromplayer.server_setCoins(fromplayer.getCoins() + 100);
 	}
-	else
+	else if (arguments.size() == 1)
 	{
 		fromplayer.server_setCoins(fromplayer.getCoins() + parseInt(arguments[0]));
+	}
+	else
+	{
+		string[] errorargs = {"coins", "!coins (amount)"};
+		mc::putError(fromplayer, "command_badarguments", errorargs);
 	}
 }
 
@@ -139,7 +156,8 @@ void cmd_team(string[] arguments, CPlayer@ fromplayer)
 {
 	if (arguments.size() == 0)
 	{
-		mc::getMsg(fromplayer) << "Please use this command as this : !team teamnumber" << mc::rdy();
+		string[] errorargs = {"team", "!team [number]"};
+		mc::putError(fromplayer, "command_badarguments", errorargs);
 	}
 	else
 	{

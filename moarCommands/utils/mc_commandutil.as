@@ -125,7 +125,8 @@ namespace mc
 					}
 					else
 					{
-						mc::getMsg(invoker) << "You are not allowed to execute this command!" << mc::rdy();
+						string[] errorargs = {invoker.getUsername(), "execute command " + commandname};
+						mc::putError(invoker, "security_norights", errorargs);
 					}
 				}
 			}

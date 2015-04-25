@@ -1,9 +1,11 @@
 #include "mc_commandutil.as"
 #include "mc_messageutil.as"
-#include "mc_pl_me_common.as"
-#include "mc_pl_me_brushes.as"
+#include "mc_errorutil.as"
 
 #include "mc_pl_std_doc_common.as"
+
+#include "mc_pl_me_common.as"
+#include "mc_pl_me_brushes.as"
 
 void onInit(CRules@ this)
 {
@@ -37,6 +39,15 @@ void onInit(CRules@ this)
 
 	mc::registerCommand("btileblob", cmd_bblob);
 	mc::registerDoc("btileblob", "Changes the mouse brush tile (blob).");
+
+	string[] err = {"block_notfound", "The block you specified ('%') was not found. Type !blockhelp to get a list of blocks."};
+	mc::errorarray.push_back(err);
+
+	string[] err2 = {"invalid_size", "The number you specified ('%') is invalid. Range : (% - %)"};
+	mc::errorarray.push_back(err2);
+
+	string[] err3 = {"invalid_brush", "The brush you specified ('%') was not found. Available brushes : %"};
+	mc::errorarray.push_back(err3);
 }
 
 void onReload(CRules@ this)
@@ -61,14 +72,18 @@ void cmd_setblock(string[] arguments, CPlayer@ fromplayer)
 	CBlob@ blob = fromplayer.getBlob();
 	if(blob is null)
 	{
-		mc::getMsg(fromplayer) << "Could not process command (player has no blob)" << mc::rdy(); //TODO: Use error classes after so it can be found easily
+		string[] errorargs = {"setblock"};
+		mc::putError(fromplayer, "player_blobunknown", errorargs);
 		return;
 	}
 	if(arguments.size() == 1)
 	{
 		int tile = StringToTile(arguments[0]);
-		if(tile == -1)
-			{mc::getMsg(fromplayer) << arguments[0] + " is not a proper tile" << mc::rdy(); return;}
+		if (tile == -1)
+		{
+			string[] errorargs = {arguments[0]};
+			mc::putError(fromplayer, "block_notfound", errorargs);
+		}
 
 		getMap().server_SetTile(blob.getAimPos(), tile);
 	}
@@ -76,13 +91,17 @@ void cmd_setblock(string[] arguments, CPlayer@ fromplayer)
 	{
 		int tile = StringToTile(arguments[0]);
 		if(tile == -1)
-			{mc::getMsg(fromplayer) << arguments[0] + " is not a proper tile" << mc::rdy(); return;}
+		{
+			string[] errorargs = {arguments[0]};
+			mc::putError(fromplayer, "block_notfound", errorargs);
+		}
 
 		getMap().server_SetTile(Vec2f(parseFloat(arguments[1]), parseFloat(arguments[2])), tile);
 	}
 	else
 	{
-		mc::getMsg(fromplayer) << "Invalid arguments; proper usage: !setblock [tile] <x> <y>" << mc::rdy();
+		string[] errorargs = {"setblock", "!setblock [tile] (x - y)"};
+		mc::putError(fromplayer, "command_badarguments", errorargs);
 	}
 }
 

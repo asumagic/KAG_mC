@@ -28,8 +28,8 @@ void cmd_tod(string[] arguments, CPlayer@ fromplayer)
 {
 	if (arguments.size() != 1)
 	{
-		mc::getMsg(fromplayer) << "Usage : !settod [time]" << mc::rdy();
-		mc::putError(fromplayer, "command_badarguments");
+		string[] errorargs = {"tod", "!tod [time](h)"};
+		mc::putError(fromplayer, "command_badarguments", errorargs);
 	}
 	else
 	{
@@ -78,7 +78,8 @@ void cmd_tame(string[] arguments, CPlayer@ fromplayer)
 		}
 		else
 		{
-			mc::getMsg(fromplayer) << "Your blob was not found; this means this command couldn't get a default position to set." << mc::rdy();
+			string[] errorargs = {"tame"};
+			mc::putError(fromplayer, "player_blobunknown", errorargs);
 		}
 	}
 	else if (arguments.size() == 1)
@@ -91,12 +92,14 @@ void cmd_tame(string[] arguments, CPlayer@ fromplayer)
 		}
 		else
 		{
-			mc::getMsg(fromplayer) << "Your blob was not found; this means this command couldn't get a default position to set." << mc::rdy();
+			string[] errorargs = {"tame"};
+			mc::putError(fromplayer, "player_blobunknown", errorargs);
 		}
 	}
 	else
 	{
-		mc::getMsg(fromplayer) << "Syntax: !tame (radius)" << mc::rdy();
+		string[] errorargs = {"tame", "!tame (radius)"};
+		mc::putError(fromplayer, "player_blobunknown", errorargs);
 	}
 }
 
@@ -116,7 +119,8 @@ void cmd_matchstate(string[] arguments, CPlayer@ fromplayer)
 	}
 	else
 	{
-		mc::getMsg(fromplayer) << "Syntax !matchstate [state]. States : warmup, gameover, game" << mc::rdy();
+		string[] errorargs = {"matchstate", "!matchstate [warmup|gameover|game]"};
+		mc::putError(fromplayer, "command_badarguments", errorargs);
 	}
 }
 
