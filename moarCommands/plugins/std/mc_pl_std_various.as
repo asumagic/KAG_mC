@@ -153,14 +153,38 @@ void cmd_scoreboard(string[] arguments, CPlayer@ fromplayer)
 		}
 
 		entry = arguments[1];
-		entry = arguments[2];
+		value = arguments[2];
 	}
 	else
 	{
-		string[] errorargs = {"scoreboard", "!scoreboard [player] [entry] [value]"};
+		string[] errorargs = {"scoreboard", "!scoreboard [player] [kill|death|score|ping] [value]"};
 		mc::putError(fromplayer, "command_badarguments", errorargs);
 		return;
 	}
+
+	int valint;
+	if (isNumber(value))
+	{
+		valint = parseInt(value);
+	}
+	else
+	{
+		string[] errorargs = {value};
+		mc::putError(fromplayer, "syntax_invalidnumber", errorargs);
+		return;
+	}
+
+	if (pointedplayer is null)
+	{
+		string[] errorargs = {arguments[0]};
+		mc::putError(fromplayer, "player_unknown", errorargs);
+		return;
+	}
+
+	if (entry == "kill")		pointedplayer.setKills(valint);
+	else if (entry == "death")	pointedplayer.setDeaths(valint);
+	else if (entry == "score")	pointedplayer.setScore(valint);
+	else if (entry == "ping")	pointedplayer.setPing(valint);
 }
 
 void onCommand(CRules@ this, u8 cmd, CBitStream@ data)

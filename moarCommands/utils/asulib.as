@@ -6,7 +6,7 @@ bool isNumber(string tocheck)
 {
 	for (uint i = 0; i < tocheck.size(); i++)
 	{
-		if ((tocheck[i] < 0x30 || tocheck[i] > 0x39) && (tocheck[i] != 0x2E)) // If it isn't a number or a dot
+		if ((tocheck[i] < 0x30 || tocheck[i] > 0x39) && (tocheck[i] != 0x2E) && (tocheck[i] != 0x2D)) // If it isn't a number or a dot
 		{
 			return false;
 		}
