@@ -48,12 +48,13 @@ Then make it load in some rule file. (Or use CRules::AddScript()).
   - [x] Security (seclevs support, etc) - Not tested yet (even if it's basic), but should work.
   - [ ] Aliases
   - [x] Errors
+  - [ ] Modifiers
 - [ ] Most of the planned commands
   - [ ] **moarCore**
   - [x] moarSpawn
   - [ ] moarSecurity
   - [ ] moarGUI
-  - [x] moarEdit (Under heavy modfications, but it's doing basic stuff.)
+  - [x] moarEdit (Incoming minecraftlike selections.)
 - [ ] Documentation
 
 Feel free to suggest new features and to improve the code!
