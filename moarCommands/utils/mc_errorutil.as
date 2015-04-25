@@ -7,29 +7,7 @@
 
 #include "mc_messageutil.as"
 
-string replacetokensby(string tochange, string tok, string[] tokreplace)
-{
-	string[] splitted = tochange.split(tok);
-
-	for (uint i = 0; i < splitted.size() && i < tokreplace.size(); i++)
-	{
-		splitted[i] += tokreplace[i];
-	}
-
-	return mix(splitted);
-}
-
-string mix(string[] splitted)
-{
-	string ret;
-
-	for (uint i = 0; i < splitted.size(); i++)
-	{
-		ret += splitted[i];
-	}
-
-	return ret;
-}
+#include "asulib.as"
 
 namespace mc
 {
@@ -40,12 +18,14 @@ namespace mc
 
 		{"syntax_unexceptedtoken", "Syntax > Unexcepted token '%'"},
 		{"syntax_exceptedtoken", "Syntax > Excepted token '%'"},
+		{"syntax_invalidnumber", "Syntax > Invalid number '%'"},
 
 		{"security_norights", "Security > Player % is not allowed to perform action : %."},
 		{"security_disabled", "Security > Command '%' found, but is disabled."},
 
 		{"player_blobunknown", "Player > Your blob was not found. '%' as this requires you to have a blob attached (i.e. being alive)."},
 
+		{"player_unknown", "Player > The player you requested ('%') couldn't be found."},
 		{"blob_unknown", "Blob > The blob you requested ('%') couldn't be spawned. It most likely doesn't exists or can't be created now."}
 	};
 

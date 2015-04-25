@@ -4,6 +4,8 @@
 #include "mc_messageutil.as"
 #include "mc_errorutil.as"
 
+#include "asulib.as"
+
 #include "mc_pl_me_common.as"
 #include "mc_pl_me_brushes_common.as"
 
@@ -38,7 +40,18 @@ void toggle_brush(CPlayer@ fromplayer)
 
 void set_size(string argument, CPlayer@ fromplayer)
 {
-	int size = parseInt(argument);
+	int size;
+
+	if (isNumber(argument))
+	{
+		size = parseInt(argument);
+	}
+	else
+	{
+		string[] errorargs = {argument};
+		mc::putError(fromplayer, "syntax_invalidnumber", errorargs);
+		return;
+	}
 
 	if(size < 1 || size > 10)
 	{
@@ -181,7 +194,17 @@ void cmd_bsize(string[] arguments, CPlayer@ fromplayer)
 		return;
 	}
 
-	int size = parseInt(arguments[0]);
+	int size;
+	if (isNumber(arguments[0]))
+	{
+		size = parseInt(arguments[0]);
+	}
+	else
+	{
+		string[] errorargs = {arguments[0]};
+		mc::putError(fromplayer, "syntax_invalidnumber", errorargs);
+		return;
+	}
 
 	if(size < 1 || size > 10)
 	{
@@ -260,7 +283,7 @@ void cmd_bblob(string[] arguments, CPlayer@ fromplayer)
 	
 	if (!blob.isSnapToGrid())
 	{
-		mc::getMsg(fromplayer, true, SColor(255, 250, 200, 50)) << "Blob found, but does not seem to be a proper tile. Still proceeding, even though you may be encountering strange issues." << mc::rdy();
+		mc::getMsg(fromplayer, true, SColor(255, 150, 100, 25)) << "Blob found, but does not seem to be a proper tile. Still proceeding, even though you may be encountering strange issues." << mc::rdy();
 	}
 
 	fromplayer.set_string("brush blob", arguments[0]);

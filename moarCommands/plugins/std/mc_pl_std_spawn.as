@@ -2,6 +2,8 @@
 #include "mc_messageutil.as"
 #include "mc_errorutil.as"
 
+#include "asulib.as"
+
 #include "mc_pl_std_doc_common.as"
 
 void onInit(CRules@ this)
@@ -38,29 +40,58 @@ void cmd_spawn(string[] arguments, CPlayer@ fromplayer)
 		CBlob@ blob = fromplayer.getBlob();
 		if (blob !is null)
 		{
-			teamid = parseInt(arguments[1]);
+			if (isNumber(arguments[1]))
+			{
+				teamid = parseInt(arguments[1]);
+			}
+			else
+			{
+				string[] errorargs = {arguments[1]};
+				mc::putError(fromplayer, "syntax_invalidnumber", errorargs);
+				return;
+			}
 			pos = blob.getPosition();
 		}
 	}
 	else if (arguments.size() == 4)
 	{
 		name = arguments[0];
-		CBlob@ blob = fromplayer.getBlob();
-		if (blob !is null)
+		if (isNumber(arguments[1]))
 		{
 			teamid = parseInt(arguments[1]);
-			pos = Vec2f(parseFloat(arguments[2]), parseFloat(arguments[3]));
 		}
-	}
-	else if (arguments.size() > 4)
-	{
-		name = arguments[0];
-		CBlob@ blob = fromplayer.getBlob();
-		if (blob !is null)
+		else
 		{
-			teamid = parseInt(arguments[1]);
-			pos = Vec2f(parseFloat(arguments[2]), parseFloat(arguments[3]));
+			string[] errorargs = {arguments[1]};
+			mc::putError(fromplayer, "syntax_invalidnumber", errorargs);
+			return;
 		}
+
+		float pos1;
+		if (isNumber(arguments[2]))
+		{
+			pos1 = parseFloat(arguments[2]);
+		}
+		else
+		{
+			string[] errorargs = {arguments[2]};
+			mc::putError(fromplayer, "syntax_invalidnumber", errorargs);
+			return;
+		}
+
+		float pos2;
+		if (isNumber(arguments[3]))
+		{
+			pos1 = parseFloat(arguments[3]);
+		}
+		else
+		{
+			string[] errorargs = {arguments[3]};
+			mc::putError(fromplayer, "syntax_invalidnumber", errorargs);
+			return;
+		}
+
+		pos = Vec2f(pos1, pos2);
 	}
 	else
 	{

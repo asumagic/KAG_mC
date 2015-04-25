@@ -2,6 +2,8 @@
 #include "mc_messageutil.as"
 #include "mc_errorutil.as"
 
+#include "asulib.as"
+
 #include "mc_pl_std_doc_common.as"
 
 #include "mc_pl_me_common.as"
@@ -39,6 +41,7 @@ void onInit(CRules@ this)
 
 	mc::registerCommand("btileblob", cmd_bblob);
 	mc::registerDoc("btileblob", "Changes the mouse brush tile (blob).");
+
 
 	string[] err = {"block_notfound", "The block you specified ('%') was not found. Type !blockhelp to get a list of blocks."};
 	mc::errorarray.push_back(err);
@@ -90,13 +93,28 @@ void cmd_setblock(string[] arguments, CPlayer@ fromplayer)
 	else if(arguments.size() == 3)
 	{
 		int tile = StringToTile(arguments[0]);
-		if(tile == -1)
+		if (tile == -1)
 		{
 			string[] errorargs = {arguments[0]};
 			mc::putError(fromplayer, "block_notfound", errorargs);
 		}
 
-		getMap().server_SetTile(Vec2f(parseFloat(arguments[1]), parseFloat(arguments[2])), tile);
+		if (!isNumber(arguments[1]))
+		{
+			string[] errorargs = {arguments[1]};
+			mc::putError(fromplayer, "syntax_invalidnumber", errorargs);
+			return;
+		}
+		else if (!isNumber(arguments[2]))
+		{
+			string[] errorargs = {arguments[2]};
+			mc::putError(fromplayer, "syntax_invalidnumber", errorargs);
+			return;
+		}
+		else
+		{		
+			getMap().server_SetTile(Vec2f(parseFloat(arguments[1]), parseFloat(arguments[2])), tile);
+		}
 	}
 	else
 	{

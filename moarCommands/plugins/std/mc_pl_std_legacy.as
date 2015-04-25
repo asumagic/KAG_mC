@@ -2,6 +2,8 @@
 #include "mc_messageutil.as"
 #include "mc_errorutil.as"
 
+#include "asulib.as"
+
 #include "mc_pl_std_doc_common.as"
 
 // as ugly as the original ChatCommands.as. what did ya except :D
@@ -143,7 +145,15 @@ void cmd_givecoins(string[] arguments, CPlayer@ fromplayer)
 	}
 	else if (arguments.size() == 1)
 	{
-		fromplayer.server_setCoins(fromplayer.getCoins() + parseInt(arguments[0]));
+		if (isNumber(arguments[0]))
+		{
+			fromplayer.server_setCoins(fromplayer.getCoins() + parseInt(arguments[0]));
+		}
+		else
+		{
+			string[] errorargs = {arguments[0]};
+			mc::putError(fromplayer, "syntax_invalidnumber", errorargs);
+		}
 	}
 	else
 	{
@@ -164,7 +174,15 @@ void cmd_team(string[] arguments, CPlayer@ fromplayer)
 		CBlob@ blob = fromplayer.getBlob();
 		if (blob !is null)
 		{
-			blob.server_setTeamNum(parseInt(arguments[0]));
+			if (isNumber(arguments[0]))
+			{
+				blob.server_setTeamNum(parseInt(arguments[0]));
+			}
+			else
+			{
+				string[] errorargs = {arguments[0]};
+				mc::putError(fromplayer, "syntax_invalidnumber", errorargs);
+			}
 		}
 	}
 }

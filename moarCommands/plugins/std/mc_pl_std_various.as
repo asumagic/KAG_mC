@@ -2,10 +2,9 @@
 #include "mc_messageutil.as"
 #include "mc_errorutil.as"
 
-#include "mc_pl_std_doc_common.as"
+#include "asulib.as"
 
-// Bison taming
-#include "AnimalConsts.as";
+#include "mc_pl_std_doc_common.as"
 
 void onInit(CRules@ this)
 {
@@ -17,6 +16,9 @@ void onInit(CRules@ this)
 
 	mc::registerCommand("matchstate", cmd_matchstate);
 	mc::registerDoc("matchstate", "Sets the match state.");
+
+	mc::registerCommand("scoreboard", cmd_scoreboard);
+	mc::registerDoc("scoreboard", "Changes scoreboard values.");
 }
 
 void onReload(CRules@ this)
@@ -35,34 +37,37 @@ void cmd_tod(string[] arguments, CPlayer@ fromplayer)
 	{
 		if (arguments[0].find("h") != -1)
 		{
-			float time = parseFloat(arguments[0]) / 24;
+			float time;
+
+			if (isNumber(arguments[0]))
+			{
+				time = parseFloat(arguments[0]) / 24;
+			}
+			else
+			{
+				string[] errorargs = {arguments[0]};
+				mc::putError(fromplayer, "syntax_invalidnumber", errorargs);
+				return;
+			}
 
 			mc::getMsg(fromplayer) << "Time set to " << time * 24 << " hours" << mc::rdy();
 			getMap().SetDayTime(time);
 		}
 		else
 		{
-			float time = parseFloat(arguments[0]);
+			float time;
+			if (isNumber(arguments[0]))
+			{
+				time = parseFloat(arguments[0]);
+			}
+			else
+			{
+				string[] errorargs = {arguments[0]};
+				mc::putError(fromplayer, "syntax_invalidnumber", errorargs);
+			}
 
 			mc::getMsg(fromplayer) << "Time set to " << time * 24 << " hours" << mc::rdy();
 			getMap().SetDayTime(time);
-		}
-	}
-}
-
-void TameInRadius(Vec2f position, float maxradius, CBlob@ owner)
-{
-	CBlob@[] bisons;
-	getBlobsByName("bison", bisons); // y geri y
-
-	float poslength = position.getLength();
-
-	for (uint i = 0; i < bisons.size(); i++)
-	{
-		if (Maths::Abs(bisons[i].getPosition().getLength() - poslength) < maxradius)
-		{
-			bisons[i].set_u8(state_property, MODE_FRIENDLY);
-			bisons[i].set_netid(friend_property, owner.getNetworkID());
 		}
 	}
 }
@@ -121,6 +126,40 @@ void cmd_matchstate(string[] arguments, CPlayer@ fromplayer)
 	{
 		string[] errorargs = {"matchstate", "!matchstate [warmup|gameover|game]"};
 		mc::putError(fromplayer, "command_badarguments", errorargs);
+	}
+}
+
+void cmd_scoreboard(string[] arguments, CPlayer@ fromplayer)
+{
+	CPlayer@ pointedplayer;
+	string entry;
+	string value;
+
+	if (arguments.size() == 2)
+	{
+		@pointedplayer = fromplayer;
+
+		entry = arguments[0];
+		value = arguments[1];
+	}
+	else if (arguments.size() == 3)
+	{
+		@pointedplayer = getPlayerByUsername(arguments[0]);
+		if (pointedplayer is null)
+		{
+			string[] errorargs = {arguments[0]};
+			mc::putError(fromplayer, "player_unknown", errorargs);
+			return;
+		}
+
+		entry = arguments[1];
+		entry = arguments[2];
+	}
+	else
+	{
+		string[] errorargs = {"scoreboard", "!scoreboard [player] [entry] [value]"};
+		mc::putError(fromplayer, "command_badarguments", errorargs);
+		return;
 	}
 }
 
