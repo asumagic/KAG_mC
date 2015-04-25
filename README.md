@@ -47,7 +47,7 @@ Then make it load in some rule file. (Or use CRules::AddScript()).
   - [x] **Command registering**
   - [x] Security (seclevs support, etc) - Not tested yet (even if it's basic), but should work.
   - [ ] Aliases
-  - [ ] Errors
+  - [x] Errors
 - [ ] Most of the planned commands
   - [ ] **moarCore**
   - [x] moarSpawn
