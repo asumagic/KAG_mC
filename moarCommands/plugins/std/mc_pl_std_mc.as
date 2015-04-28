@@ -7,13 +7,13 @@
 void onInit(CRules@ this)
 {
 	mc::registerCommand("mc", cmd_mc);
-	mc::registerDoc("mc", "moarCommands' main command. Allows you to watch the mod health.");
+	mc::registerDoc("mc", "moarCommands' main command. Allows you to watch the mod health.\nSyntax - !mc");
 
 	mc::registerCommand("help", cmd_help);
-	mc::registerDoc("help", "Allows you to get general info about the mod and how to use it.");
+	mc::registerDoc("help", "Allows you to get general info about the mod and how to use it.\nSyntax - !help");
 
 	mc::registerCommand("commands", cmd_commands);
-	mc::registerDoc("commands", "Prints out all the commands available.");
+	mc::registerDoc("commands", "Prints out all the commands available.\nSyntax - !commands");
 }
 
 void onReload(CRules@ this)

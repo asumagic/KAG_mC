@@ -6,10 +6,10 @@
 void onInit(CRules@ this)
 {
 	mc::registerCommand("demomsg", cmd_demomsg);
-	mc::registerDoc("demomsg", "Part of the demolib - Prints a list showing up mC's msg classes capacities.");
+	mc::registerDoc("demomsg", "Part of the demolib - Prints a list showing up mC's msg classes capacities. \nSyntax: !demomsg");
 
 	mc::registerCommand("demoargs", cmd_demoargs);
-	mc::registerDoc("demoargs", "Part of the demolib - Prints a list of the entered arguments.");
+	mc::registerDoc("demoargs", "Part of the demolib - Prints a list of the entered arguments.\nSyntax: !demoargs (any)");
 }
 
 void onReload(CRules@ this)

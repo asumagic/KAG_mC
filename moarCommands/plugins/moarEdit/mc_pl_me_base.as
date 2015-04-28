@@ -12,35 +12,35 @@
 void onInit(CRules@ this)
 {
 	mc::registerCommand("me", cmd_me);
-	mc::registerDoc("me", "moarEdit's main command. Features, for now, a little tutorial on using.");
+	mc::registerDoc("me", "moarEdit's main command. Features, for now, a little tutorial on using.\nSyntax - !me");
 
 	mc::registerCommand("blockhelp", cmd_blockhelp); // defined in common
-	mc::registerDoc("blockhelp", "Prints a list of available blocks.");
+	mc::registerDoc("blockhelp", "Prints a list of available blocks.\nSyntax - !blockhelp");
 
 	mc::registerCommand("picturebrushhelp", cmd_picturehelp);
-	mc::registerDoc("picturebrushhelp", "Prints a list of available brushes, based on filename.");
+	mc::registerDoc("picturebrushhelp", "Prints a list of available brushes, based on filename. [Broken]\nSyntax - !picturebrushhelp");
 
 	mc::registerCommand("setblock", cmd_setblock);
-	mc::registerDoc("setblock", "Sets the specified block (You can get a list of those using !blockhelp) at the specified coordinates.");
+	mc::registerDoc("setblock", "Sets the specified block (You can get a list of those using !blockhelp) at the specified coordinates.\nSyntax - !setblock [tile] (x - y)");
 
 	
 	mc::registerCommand("brush", cmd_brush);
-	mc::registerDoc("brush", "Toggles the mouse brush.");
+	mc::registerDoc("brush", "Toggles the mouse brush.\nSyntax - !brush");
 
 	mc::registerCommand("bsize", cmd_bsize);
-	mc::registerDoc("bsize", "Changes the mouse brush size.");
+	mc::registerDoc("bsize", "Changes the mouse brush size.\nSyntax - !bsize [size]");
 
 	mc::registerCommand("btype", cmd_btype);
-	mc::registerDoc("btype", "Changes the mouse brush type. Available types : pixel, circle, square and picture.");
+	mc::registerDoc("btype", "Changes the mouse brush type.\nSyntax - !btype [type]\nAvailable types : pixel, circle, square and picture.");
 
 	mc::registerCommand("bpicture", cmd_bpic);
-	mc::registerDoc("bpicture", "Changes the current image");
+	mc::registerDoc("bpicture", "Changes the current image\nSyntax - !bpicture [filename]");
 
 	mc::registerCommand("btile", cmd_btile);
-	mc::registerDoc("btile", "Changes the mouse brush tile (You can get a list of those using !blockhelp).");
+	mc::registerDoc("btile", "Changes the mouse brush tile (You can get a list of those using !blockhelp).\nSyntax - !btile [tile]");
 
 	mc::registerCommand("btileblob", cmd_bblob);
-	mc::registerDoc("btileblob", "Changes the mouse brush tile (blob).");
+	mc::registerDoc("btileblob", "Changes the mouse brush tile (blob).\nSyntax - !btileblob [blob]");
 
 
 	string[] err = {"block_notfound", "The block you specified ('%') was not found. Type !blockhelp to get a list of blocks."};
@@ -49,7 +49,7 @@ void onInit(CRules@ this)
 	string[] err2 = {"invalid_size", "The number you specified ('%') is invalid. Range : (% - %)"};
 	mc::errorarray.push_back(err2);
 
-	string[] err3 = {"invalid_brush", "The brush you specified ('%') was not found. Available brushes : %"};
+	string[] err3 = {"invalid_brush", "The brush you specified ('%') was not found."};
 	mc::errorarray.push_back(err3);
 }
 

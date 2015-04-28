@@ -11,25 +11,25 @@
 void onInit(CRules@ this)
 {
 	mc::registerCommand("killme", cmd_killme);
-	mc::registerDoc("killme", "Kills the player calling the command.");
+	mc::registerDoc("killme", "Kills the player calling the command.\nSyntax - !killme");
 
 	mc::registerCommand("bot", cmd_spawnbot);
-	mc::registerDoc("bot", "Spawns a bot.");
+	mc::registerDoc("bot", "Spawns a bot.\nSyntax - !bot (name)");
 
 	mc::registerCommand("printblobs", cmd_printblobs);
-	mc::registerDoc("printblobs", "Prints a blob list server side.");
+	mc::registerDoc("printblobs", "Prints a blob list server-side.\nSyntax - !printblobs");
 
 	mc::registerCommand("spawnwater", cmd_spawnwater);
-	mc::registerDoc("spawnwater", "Floods the tile at the player position.");
+	mc::registerDoc("spawnwater", "Floods the tile at the player position. [Soon deprecated]\nSyntax - !spawnwater");
 
 	mc::registerCommand("spawnfire", cmd_spawnfire);
-	mc::registerDoc("spawnfire", "Burns the tile at the player position.");
+	mc::registerDoc("spawnfire", "Burns the tile at the player position. [Soon deprecated]\nSyntax - !spawnfire");
 
 	mc::registerCommand("coins", cmd_givecoins);
-	mc::registerDoc("coins", "Gives coins to the player.");
+	mc::registerDoc("coins", "Gives coins to the player.\nSyntax - !coins (amount)");
 
 	mc::registerCommand("team", cmd_team);
-	mc::registerDoc("team", "Sets the current player team");
+	mc::registerDoc("team", "Sets the current player team\nSyntax - !team [team]");
 
 }
 

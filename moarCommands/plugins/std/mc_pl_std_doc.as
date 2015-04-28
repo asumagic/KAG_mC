@@ -7,7 +7,7 @@
 void onInit(CRules@ this)
 {
 	mc::registerCommand("man", cmd_man);
-	mc::registerDoc("man", "I have no idea why are you doing that.");
+	mc::registerDoc("man", "I have no idea why are you doing that.\nSyntax - !man [command]");
 }
 
 void onReload(CRules@ this)

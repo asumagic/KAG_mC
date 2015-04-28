@@ -9,7 +9,7 @@
 void onInit(CRules@ this)
 {
 	mc::registerCommand("s", cmd_spawn);
-	mc::registerDoc("s", "Spawns a blob.");
+	mc::registerDoc("s", "Spawns a blob.\nSyntax - !s [blobname] (team) (x - y) (scripts)");
 }
 
 void onReload(CRules@ this)
@@ -17,7 +17,7 @@ void onReload(CRules@ this)
 	onInit(this);
 }
 
-// !s [blobname] <team> <x> <y>
+// !s [blobname] <team> <x> <y> (scripts)
 void cmd_spawn(string[] arguments, CPlayer@ fromplayer)
 {
 	Vec2f pos = Vec2f_zero;
@@ -53,7 +53,7 @@ void cmd_spawn(string[] arguments, CPlayer@ fromplayer)
 			pos = blob.getPosition();
 		}
 	}
-	else if (arguments.size() == 4)
+	else if (arguments.size() >= 4)
 	{
 		name = arguments[0];
 		if (isNumber(arguments[1]))
@@ -82,7 +82,7 @@ void cmd_spawn(string[] arguments, CPlayer@ fromplayer)
 		float pos2;
 		if (isNumber(arguments[3]))
 		{
-			pos1 = parseFloat(arguments[3]);
+			pos2 = parseFloat(arguments[3]);
 		}
 		else
 		{

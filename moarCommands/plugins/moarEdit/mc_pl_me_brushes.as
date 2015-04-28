@@ -219,7 +219,7 @@ void cmd_bsize(string[] arguments, CPlayer@ fromplayer)
 
 void cmd_btype(string[] arguments, CPlayer@ fromplayer)
 {
-	if(arguments.size() != 1)
+	if (arguments.size() != 1)
 	{
 		string[] errorargs = {"btype", "!btype [type]"};
 		mc::putError(fromplayer, "command_badarguments", errorargs);
@@ -228,10 +228,11 @@ void cmd_btype(string[] arguments, CPlayer@ fromplayer)
 
 	int type = BrushNames.find(arguments[0]);
 
-	if(type == -1 || type >= BrushNames.size())
+	if (type == -1 || type >= BrushNames.size())
 	{
 		string[] errorargs = {arguments[0]};
 		mc::putError(fromplayer, "invalid_brush", errorargs);
+		mc::getMsg(fromplayer) << "Brushes [" << BrushNames.size() << "] : " << BrushNames << mc::rdy();
 		return;
 	}
 

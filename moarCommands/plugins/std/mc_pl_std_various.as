@@ -9,16 +9,16 @@
 void onInit(CRules@ this)
 {
 	mc::registerCommand("settod", cmd_tod);
-	mc::registerDoc("settod", "Sets the time of day.");
+	mc::registerDoc("settod", "Sets the time of day.\nSyntax - !settod [time](h)");
 
 	mc::registerCommand("tame", cmd_tame);
-	mc::registerDoc("tame", "Tames bisons in radius.");
+	mc::registerDoc("tame", "Tames bisons in radius.\nSyntax - !tame (radius)");
 
 	mc::registerCommand("matchstate", cmd_matchstate);
-	mc::registerDoc("matchstate", "Sets the match state.");
+	mc::registerDoc("matchstate", "Sets the match state.\nSyntax - !matchstate [state]\nAvailable states : game, gameover, warmup");
 
 	mc::registerCommand("scoreboard", cmd_scoreboard);
-	mc::registerDoc("scoreboard", "Changes scoreboard values.");
+	mc::registerDoc("scoreboard", "Changes scoreboard values.\nSyntax - !scoreboard [player] [entry] [value]\nAvailable entries : kill, death, score, ping");
 }
 
 void onReload(CRules@ this)
@@ -35,8 +35,9 @@ void cmd_tod(string[] arguments, CPlayer@ fromplayer)
 	}
 	else
 	{
-		if (arguments[0].find("h") != -1)
+		if (arguments[0][arguments[0].size()-1] == 0x68)
 		{
+			arguments[0].resize(arguments[0].size()-1);
 			float time;
 
 			if (isNumber(arguments[0]))
@@ -64,6 +65,7 @@ void cmd_tod(string[] arguments, CPlayer@ fromplayer)
 			{
 				string[] errorargs = {arguments[0]};
 				mc::putError(fromplayer, "syntax_invalidnumber", errorargs);
+				return;
 			}
 
 			mc::getMsg(fromplayer) << "Time set to " << time * 24 << " hours" << mc::rdy();

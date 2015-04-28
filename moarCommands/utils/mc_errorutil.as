@@ -35,7 +35,9 @@ namespace mc
 		{
 			if (errorarray[i][0] == err)
 			{
+				mc::getMsg() << "Error '" << err << "' sent to player " << player << " with arguments [" << completion.size() << "] : " << completion << mc::rdy();
 				mc::getMsg(player, true, SColor(255, 200, 0, 0)) << replacetokensby(errorarray[i][1], '%', completion) << mc::rdy();
+				break;
 			}
 		}
 	}
