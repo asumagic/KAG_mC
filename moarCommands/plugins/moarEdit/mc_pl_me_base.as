@@ -17,13 +17,12 @@ void onInit(CRules@ this)
 	mc::registerCommand("blockhelp", cmd_blockhelp); // defined in common
 	mc::registerDoc("blockhelp", "Prints a list of available blocks.\nSyntax - !blockhelp");
 
-	mc::registerCommand("picturebrushhelp", cmd_picturehelp);
-	mc::registerDoc("picturebrushhelp", "Prints a list of available brushes, based on filename. [Broken]\nSyntax - !picturebrushhelp");
+	//mc::registerCommand("picturebrushhelp", cmd_picturehelp);
+	//mc::registerDoc("picturebrushhelp", "Prints a list of available brushes, based on filename. [Broken]\nSyntax - !picturebrushhelp");
 
 	mc::registerCommand("setblock", cmd_setblock);
-	mc::registerDoc("setblock", "Sets the specified block (You can get a list of those using !blockhelp) at the specified coordinates.\nSyntax - !setblock [tile] (x - y)");
+	mc::registerDoc("setblock", "Sets the specified block (You can get a list of those using !blockhelp) at the specified coordinates.\nIf coordinates aren't specified, the mouse position (if available) will be used.\nSyntax - !setblock [tile] (x - y)");
 
-	
 	mc::registerCommand("brush", cmd_brush);
 	mc::registerDoc("brush", "Toggles the mouse brush.\nSyntax - !brush");
 
@@ -53,7 +52,7 @@ void onInit(CRules@ this)
 	mc::errorarray.push_back(err3);
 }
 
-void onReload(CRules@ this)
+void onTick(CRules@ this)
 {
 	onInit(this);
 }
@@ -72,15 +71,16 @@ void cmd_me(string[] arguments, CPlayer@ fromplayer)
 
 void cmd_setblock(string[] arguments, CPlayer@ fromplayer)
 {
-	CBlob@ blob = fromplayer.getBlob();
-	if(blob is null)
-	{
-		string[] errorargs = {"setblock"};
-		mc::putError(fromplayer, "player_blobunknown", errorargs);
-		return;
-	}
 	if(arguments.size() == 1)
 	{
+		CBlob@ blob = fromplayer.getBlob();
+		if(blob is null)
+		{
+			string[] errorargs = {"setblock"};
+			mc::putError(fromplayer, "player_blobunknown", errorargs);
+			return;
+		}
+
 		int tile = StringToTile(arguments[0]);
 		if (tile == -1)
 		{

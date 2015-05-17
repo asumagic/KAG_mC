@@ -21,7 +21,7 @@ void onInit(CRules@ this)
 	mc::registerDoc("scoreboard", "Changes scoreboard values.\nSyntax - !scoreboard [player] [entry] [value]\nAvailable entries : kill, death, score, ping");
 }
 
-void onReload(CRules@ this)
+void onTick(CRules@ this)
 {
 	onInit(this);
 }

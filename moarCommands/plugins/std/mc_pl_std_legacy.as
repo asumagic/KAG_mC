@@ -33,7 +33,7 @@ void onInit(CRules@ this)
 
 }
 
-void onReload(CRules@ this)
+void onTick(CRules@ this)
 {
 	onInit(this);
 }

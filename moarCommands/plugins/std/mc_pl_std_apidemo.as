@@ -12,7 +12,7 @@ void onInit(CRules@ this)
 	mc::registerDoc("demoargs", "Part of the demolib - Prints a list of the entered arguments.\nSyntax: !demoargs (any)");
 }
 
-void onReload(CRules@ this)
+void onTick(CRules@ this)
 {
 	onInit(this);
 }

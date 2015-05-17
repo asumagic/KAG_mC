@@ -36,3 +36,16 @@ void onCommand(CRules@ this, u8 cmd, CBitStream @params)
 		}
 	}
 }
+
+/*void onTick(CRules@ this) // 2dank4u
+{
+		CCamera@ cam = getCamera();
+		CBlob@ localblob = getLocalPlayerBlob();
+	if (cam !is null)
+	{
+		if (localblob !is null)
+		{
+			cam.setRotation(localblob.getAimPos().getAngle() - localblob.getPosition().getAngle());
+		}
+	}
+}*/

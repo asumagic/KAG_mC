@@ -8,6 +8,7 @@
 #include "mc_messageutil.as"
 #include "mc_commandutil.as"
 #include "mc_errorutil.as"
+#include "mc_aliasutil.as"
 
 void onInit(CRules@ this)
 {

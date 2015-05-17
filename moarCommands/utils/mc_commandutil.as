@@ -16,39 +16,29 @@ namespace mc
 	string[] commands;
 	string[] localcommands;
 	cmd_callback@[] commandcallbacks;
-
-	string[][] aliases;
 	
 	void registerCommand(string commandname, cmd_callback@ function)
 	{
 		syncGetCommands();
-
-		if (localcommands.size() != commandcallbacks.size())
-		{
-			error("moarCommands fatal error : Command arrays length mismatch!");
-		}
 
 		bool canregister = true;
 		for (uint i = 0; i < commands.size(); i++)
 		{
 			if (commands[i] == commandname)
 			{
-				canregister = false;
+				return;
 			}
 		}
 
-		if (canregister)
-		{
-			mc::getMsg() << "Registering command " << commandname << "..." << mc::rdy();
+		mc::getMsg() << "Registering command " << commandname << "..." << mc::rdy();
 
-			unregisterCommand(commandname);
+		unregisterCommand(commandname);
 	
-			commands.push_back(commandname);
-			localcommands.push_back(commandname);
-			commandcallbacks.push_back(function);
-	
-			syncSetCommands();
-		}
+		commands.push_back(commandname);
+		localcommands.push_back(commandname);
+		commandcallbacks.push_back(function);
+
+		syncSetCommands();
 	}
 
 	void unregisterCommand(string commandname)

@@ -1,6 +1,7 @@
 #include "mc_commandutil.as"
 #include "mc_messageutil.as"
 #include "mc_errorutil.as"
+#include "mc_version.as"
 
 #include "mc_pl_std_doc_common.as"
 
@@ -16,22 +17,22 @@ void onInit(CRules@ this)
 	mc::registerDoc("commands", "Prints out all the commands available.\nSyntax - !commands");
 }
 
-void onReload(CRules@ this)
+void onTick(CRules@ this)
 {
 	onInit(this);
 }
 
 void cmd_mc(string[] arguments, CPlayer@ fromplayer)
 {
-	mc::getMsg(fromplayer) << "== Welcome to a moarCommands powered server. ==" << mc::rdy()
-						   << "= If you see this, mC is active and working." << mc::rdy()
-						   << "= If you ever need help, type !help." << mc::rdy();
+	mc::getMsg(fromplayer)  << "== This server is powered by moarCommands. ==" << mc::rdy()
+							<< "= Installed version : mC " << version << mc::rdy()
+							<< "= Type !help to get a general help on using the mod." << mc::rdy();
 }
 
 void cmd_help(string[] arguments, CPlayer@ fromplayer)
 {
 	mc::getMsg(fromplayer) << "== Help ==" << mc::rdy()
-						   << "= Type !commands for a list of commands." << mc::rdy()
+						   << "= Type !commands to get a list of commands." << mc::rdy()
 						   << "= moarCommands can be used the same way as the regular commands." << mc::rdy();
 }
 

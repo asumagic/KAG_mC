@@ -12,7 +12,7 @@ void onInit(CRules@ this)
 	mc::registerDoc("s", "Spawns a blob.\nSyntax - !s [blobname] (team) (x - y) (scripts)");
 }
 
-void onReload(CRules@ this)
+void onTick(CRules@ this)
 {
 	onInit(this);
 }

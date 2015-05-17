@@ -10,7 +10,7 @@ void onInit(CRules@ this)
 	mc::registerDoc("man", "I have no idea why are you doing that.\nSyntax - !man [command]");
 }
 
-void onReload(CRules@ this)
+void onTick(CRules@ this)
 {
 	onInit(this);
 }

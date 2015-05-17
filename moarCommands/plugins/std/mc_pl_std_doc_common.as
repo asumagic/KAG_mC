@@ -7,7 +7,7 @@ namespace mc
 		string docget;
 		if (!docs.get(command, docget))
 		{
-			return "This command either does not exists either have not registered a manual entry.";
+			return "";
 		}
 		return docget;
 	}
@@ -28,7 +28,23 @@ namespace mc
 	{
 		syncGetDocs();
 
-		print("Registering command manual '" + name + "'...");
+		string manentry = getMan(name);
+
+		if (manentry == "")
+		{
+			print("Registering command manual '" + name + "'...");
+		}
+		else
+		{
+			if (manentry != doc)
+			{
+				print("Updating command manual '" + name + "'...");
+			}
+			else
+			{
+				return;
+			}
+		}
 
 		docs.set(name, doc);
 
