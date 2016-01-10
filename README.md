@@ -43,9 +43,9 @@ class plugin_helloworld : mc::plugin
   plugin_helloworld()
   {
     name = "Hello World"; // We set the plugin name. Don't worry about spaces : The parser allows doing !plugin "Hello World" and sending "Hello World" without quotes as a single argument.
-    description = "This is a simple hello world plugin. !helloworld should print 'Hello, <username>!'";
+    description = "This is a simple hello world plugin. !helloworld should print 'Hello, <username>!'"; // Now, the description as we can see it using !plugin "Hello World"
 
-    commands.push_back(command_helloworld());
+    commands.push_back(command_helloworld()); // AngelScript (at least in the version used by KAG) does not support initializations lists on already initialized values. So we either have to passby using a temporary variable (preferred) or using a push_back (unrecommended for more than a command) for every command.
   }
 };
 ```
