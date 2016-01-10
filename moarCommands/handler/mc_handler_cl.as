@@ -10,11 +10,6 @@ void onInit(CRules@ this)
 	print("Loading client script...");
 }
 
-void onReload(CRules@ this)
-{
-	onInit(this);
-}
-
 void onCommand(CRules@ this, u8 cmd, CBitStream @params)
 {
 	if (cmd == this.getCommandID("mc_strsend"))
@@ -27,7 +22,6 @@ void onCommand(CRules@ this, u8 cmd, CBitStream @params)
 			u8 r = params.read_u8();
 			u8 g = params.read_u8();
 			u8 b = params.read_u8();
-
 			client_AddToChat(textoutput, SColor(255, r, g, b));
 		}
 		else
@@ -36,16 +30,3 @@ void onCommand(CRules@ this, u8 cmd, CBitStream @params)
 		}
 	}
 }
-
-/*void onTick(CRules@ this) // 2dank4u
-{
-		CCamera@ cam = getCamera();
-		CBlob@ localblob = getLocalPlayerBlob();
-	if (cam !is null)
-	{
-		if (localblob !is null)
-		{
-			cam.setRotation(localblob.getAimPos().getAngle() - localblob.getPosition().getAngle());
-		}
-	}
-}*/

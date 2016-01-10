@@ -12,7 +12,7 @@ namespace mc
 		ConfigFile cfg;
 		if (!cfg.loadFile(file))
 		{
-			mc::getMsg() << "Config file '" << file << "' not found." << mc::rdy();
+			mc::getMsg() << "Config file '" << file << "' not found." << endl;
 		}
 	}
 }

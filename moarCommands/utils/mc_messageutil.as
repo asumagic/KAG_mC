@@ -11,7 +11,7 @@ namespace mc
 {
 	string noticeprefix = "[mC] ";
 
-	// If player is null, this will set out the output to server automatically, so 'getMsg() << "Hello World" << rdy();' will work.
+	// If player is null, this will set out the output to server automatically, so 'getMsg() << "Hello World" << endl;' will work.
 	// Else, if out is false, the message will be sent to the console, otherwise in the chat.
 	mc::msgout getMsg(CPlayer@ player, bool outmode = true, SColor color = SColor(255, 0, 127, 0))
 	{
@@ -44,15 +44,15 @@ namespace mc
 		return msgout();
 	}
 
-	
-
 	// This is kind of a line jump but more generally it's sending the message and flushing the internal string.
-	// So everytime you're putting text in the msgout, you *must* put in a rdy too!
+	// 1.0a renames rdy to endl_t and instantiates endl for simplicity.
 	// It doesn't have any other point.
-	// This is completly valid and will show up correctly : 'getMsg("AsuMagic") << "Hello, Asu!" << rdy() << "How's things going?" << rdy();'.
-	class rdy
+	// This is completly valid and will show up correctly : 'getMsg("AsuMagic") << "Hello, Asu!" << endl << "How's things going?" << endl;'.
+	endl_t endl;
+
+	class endl_t
 	{
-		rdy() {}
+		endl_t() {}
 	};
 
 	class msgout
@@ -67,7 +67,7 @@ namespace mc
 			return this;
 		}
 
-		msgout@ opShl(const rdy &in readytok)
+		msgout@ opShl(const endl_t &in ignored)
 		{
 			put();
 			return this;
@@ -204,7 +204,6 @@ namespace mc
 			textstream.write_u8(textcolor.getRed());
 			textstream.write_u8(textcolor.getGreen());
 			textstream.write_u8(textcolor.getBlue());
-
 
 			CRules@ rules = getRules();
 			rules.SendCommand(rules.getCommandID("mc_strsend"), textstream, pointedplayer);
