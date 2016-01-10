@@ -15,14 +15,7 @@ namespace mc
 	// Else, if out is false, the message will be sent to the console, otherwise in the chat.
 	mc::msgout getMsg(CPlayer@ player, bool outmode = true, SColor color = SColor(255, 0, 127, 0))
 	{
-		if (player is null)
-		{
-			return svout();
-		}
-		else
-		{
-			return clout(player, outmode, color);
-		}
+		return clout(player, outmode, color);
 	}
 
 	mc::msgout getMsg(string player, bool outmode = true, SColor color = SColor(255, 0, 127, 0))

@@ -57,7 +57,7 @@ int verifyPage(string text, int argmcount, CPlayer@ caster)
 
 	string[] errorargs = { text };
 
-	if ((asFloat % 1) != 0) { // @todo : find a faster way
+	if ((asFloat % 1) != 0) {
 		errorargs.push_back("it is not a natural number");
 	} else if (i < 0) {
 		errorargs.push_back("it has to be positive and not null");
@@ -142,7 +142,6 @@ class cmd_plugininfo : mc::command
 			string build = "";
 			for (int i = at; (i < plug.commands.size()) && (i < at + 5); i++)
 			{
-				build += "\n- " + plug.commands[i].name; // @todo : use the make manual function
 			}
 
 			mc::getMsg(caster) << "Plugin info for '" << plug.name << "' :\nDescription : " << plug.description

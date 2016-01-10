@@ -40,7 +40,6 @@ bool onServerProcessChat(CRules@ this, const string &in textIn, string &out text
 
 		return false;
 	}
-
-
+	
 	return true;
 }

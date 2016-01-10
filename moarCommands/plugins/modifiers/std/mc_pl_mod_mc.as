@@ -1,4 +1,5 @@
 #include "mc_modifierparse.as"
+#include "mc_pluginbase.as"
 #include "mc_version.as"
 
 void onInit(CRules@ this)

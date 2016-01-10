@@ -61,9 +61,8 @@ void onInit(CRules@ this)
 		getRules().AddScript("mc_handler_sv.as");
 	}
 	
-	// This is required for localhost parties, where the player can be the server and the client at the same time.
+	// This is apparently required for localhost parties, where the player can be the server and the client at the same time.
 	// Else we'd get odd issues, such as sending messages but never receiving them.
-	// @todo localhost fucked up...
 	if (getNet().isClient())
 	{
 		getRules().RemoveScript("mc_handler_cl.as");
@@ -76,7 +75,7 @@ void onInit(CRules@ this)
 	print("Preparing modifiers...");
 	mc::setModifierList(mc::modifierList());
 
-	print("Loading scripts...");
+	print("Loading plugin and modifier scripts...");
 	mc::setupScripts(this);
 
 	warn("moarCommands initialized.");
